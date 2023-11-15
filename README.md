@@ -50,8 +50,11 @@ Men above the age of 20 who:
 4. **User Account Page** - contains the list of all previously generated outfits images and Playground selections
 
 ### Mockups
+- **Main feature** (Playground), only for illustrative purposes to understand the core functionality, not comprehensive, specifics of design subject to change:
+![Playground feature low-fidelity mock-up](./public/lofi_playground.jpg)
 
-// TODO: Provide visuals of your app's screens. You can use tools like Figma or pictures of hand-drawn sketches.
+- Playground **Generation Component** (after pressing "Generate"), only for illustrative purposes to understand the core functionality, not comprehensive, specifics of design subject to change:
+![Generation component low-fidelity mock-up](./public/lofi_ai_preivew.jpg.jpg)
 
 ### Data
 Stored initially in JSON files with the goal of migrating to a MongoDB configuration.
@@ -64,6 +67,7 @@ Stored initially in JSON files with the goal of migrating to a MongoDB configura
     name: "John Rupert",
     email: "john@example.com"
     }
+    ...
 ]
 ```
 - **UserHistory.json**: Eg.
