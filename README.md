@@ -8,7 +8,7 @@ Users can also save the generated outfits in their account section and revisit a
 
 ### Problem
 
-TOGA is for men who aren't into fashion but still value elegance and feeling confident in their outfit. Going shopping, browsing online, and keeping track of the essentials you own, as well as the possible color-combos is time-consuming.
+TOGA is for men who aren't into fashion but still value elegance and feeling confident in their outfit. Going shopping, browsing online, and keeping track of the essentials you own, as well as the possible color combos is time-consuming.
 To add to the problem, it's in the interest of clothing stores to expose you to as many items as possible. And with the sea of options out there shopping for clothes is guaranteed to be a frustrating endeavor. Especially if you're not into that.
 Sometimes it's also hard to find specific essentials such as t-shirts, polos, jackets, chinos, etc. in the right color and fit. By forging advertising partnerships with clothing companies TOGA has the potential of streamlining this process and show the user the exactly the right item, circumventing search altogether.
 
@@ -54,8 +54,52 @@ Men above the age of 20 who:
 // TODO: Provide visuals of your app's screens. You can use tools like Figma or pictures of hand-drawn sketches.
 
 ### Data
+Stored initially in JSON files with the goal of migrating to a MongoDB configuration.
 
-// TODO: Describe your data and the relationships between them. You can show this visually using diagrams, or write it out. 
+- **Users.json**: Eg.
+[
+    {
+    id: "xyz",
+    name: "John Rupert",
+    email: "john@example.com"
+    }
+]
+- **UserHistory.json**: Eg.
+[
+    {
+        item_id: "abc",
+        item_name: "Black bomber with beige chinos",
+        image: "url",
+        category_selections:[
+            {
+                category_id: "mnl",
+                category_name: "Top",
+                clothing_id: "opq",
+                clothing_name: "Bomber",
+                color: "#000000"
+            }
+            ...
+         ]
+    }
+    ...
+]
+- **ClothingCategories.json**: Eg.
+[
+    {
+        category_id: "mnl",
+        category_name: "top",
+        clothing_types:
+        [
+            {
+                clothing_id: "opq",
+                clothing_name: "Bomber",
+                colors: ["#000000", ...]
+            }
+            ...
+        ]
+    }
+    ...
+]
 
 ### Endpoints
 
