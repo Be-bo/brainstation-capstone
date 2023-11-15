@@ -54,7 +54,7 @@ Men above the age of 20 who:
 ![Playground feature low-fidelity mock-up](./public/lofi_playground.jpg)
 
 - Playground **Generation Component** (after pressing "Generate"), only for illustrative purposes to understand the core functionality, not comprehensive, specifics of design subject to change:
-![Generation component low-fidelity mock-up](./public/lofi_ai_preivew.jpg.jpg)
+![Generation component low-fidelity mock-up](./public/lofi_ai_preivew.jpg)
 
 ### Data
 Stored initially in JSON files with the goal of migrating to a MongoDB configuration.
