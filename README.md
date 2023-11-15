@@ -57,6 +57,7 @@ Men above the age of 20 who:
 Stored initially in JSON files with the goal of migrating to a MongoDB configuration.
 
 - **Users.json**: Eg.
+```json
 [
     {
     id: "xyz",
@@ -64,7 +65,9 @@ Stored initially in JSON files with the goal of migrating to a MongoDB configura
     email: "john@example.com"
     }
 ]
+```
 - **UserHistory.json**: Eg.
+```json
 [
     {
         item_id: "abc",
@@ -83,7 +86,9 @@ Stored initially in JSON files with the goal of migrating to a MongoDB configura
     }
     ...
 ]
+```
 - **ClothingCategories.json**: Eg.
+```json
 [
     {
         category_id: "mnl",
@@ -100,6 +105,7 @@ Stored initially in JSON files with the goal of migrating to a MongoDB configura
     }
     ...
 ]
+```
 
 ### Endpoints
 
