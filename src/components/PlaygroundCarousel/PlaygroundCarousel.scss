@@ -1,0 +1,26 @@
+@import '../../partials/variables';
+@import '../../partials/mixins';
+
+.carousel-outer{
+    overflow: hidden;
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 50px;
+}
+
+.carousel-inner{
+    display: flex;
+    width: 2000px;
+    transition: transform 0.3s;
+    background-color: blue;
+}
+
+.carousel-buttons{
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+

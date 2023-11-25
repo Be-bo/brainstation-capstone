@@ -1,0 +1,61 @@
+// MARK: BREAKPOINTS
+$mobile-breakpoint: 768px;
+$tablet-breakpoint: 1280px;
+
+
+// MARK: COLORS
+$brand-color: #DDD3B3;
+$text-color: #000000;
+$accent-color: #324C88;
+$interaction-color: #912727;
+$background-color: #ffffff;
+$background-color-secondary: #E4E4E4;
+
+
+// MARK: HARDCODED
+$corner-radius: 0.25rem;
+$normal-font-weight: 400;
+$bold-font-weight: 700;
+
+
+// MARK: RESPONSIVE VARIABLES
+:root{
+    --base-padding: 1rem;
+    --button-height: 2rem;
+    --icon-dimen: 2rem;
+    --button-width: 120px;
+    --h1-font-size: 1.5rem;
+    --h2-font-size: 0.75rem;
+    --h3-font-size: 0.85rem;
+    --p-font-size: 0.8125rem;
+    --playground-card-dimen: 150px;
+}
+
+
+@media (min-width: #{$mobile-breakpoint}) { // above mobile (768px)
+  :root{
+    --base-padding: 1.5rem;
+    --button-height: 2.5rem;
+    --icon-dimen: 2.5rem;
+    --button-width: 135px;
+    --h1-font-size: 1.75rem;
+    --h2-font-size: 1rem;
+    --h3-font-size: 0.925rem;
+    --p-font-size: 0.9rem;
+    --playground-card-dimen: 175px;
+  }
+}
+
+@media (min-width: #{$tablet-breakpoint}) { // above tablet (1280px)
+    :root{
+        --base-padding: 2rem;
+        --button-height: 3rem;
+        --icon-dimen: 3rem;
+        --button-width: 150px;
+        --h1-font-size: 2rem;
+        --h2-font-size: 1.3rem;
+        --h3-font-size: 1.1rem;
+        --p-font-size: 1rem;
+        --playground-card-dimen: 200px;
+    }
+}

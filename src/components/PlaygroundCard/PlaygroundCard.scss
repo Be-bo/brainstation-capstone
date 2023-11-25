@@ -1,0 +1,13 @@
+@import '../../partials/variables';
+@import '../../partials/mixins';
+
+
+.carousel-item {
+    background-color: $background-color-secondary;
+    border-radius: $corner-radius;
+    margin: var(--base-padding);
+}
+
+.carousel-text{
+    text-align: center;
+}
