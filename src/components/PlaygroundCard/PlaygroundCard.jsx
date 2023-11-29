@@ -1,10 +1,10 @@
-import {useState, useRef} from 'react'
+import { useState, useRef } from 'react'
 import './PlaygroundCard.scss';
 
-function PlaygroundCard({itemWidth, itemHeight, itemClick, itemImgPath}) {
+function PlaygroundCard({ itemWidth, itemHeight, itemClick, itemImgPath, itemName }) {
   const radioRef = useRef(null);
   const [radioChecked, setRadioChecked] = useState(false);
-  
+
   const itemStyle = {
     minWidth: `${itemWidth}px`,
     maxWidth: `${itemWidth}px`,
@@ -19,8 +19,11 @@ function PlaygroundCard({itemWidth, itemHeight, itemClick, itemImgPath}) {
 
   return (
     <div className='carousel-item' style={itemStyle} onClick={handleImageClick}>
-      <input ref={radioRef} type='radio' name='options' className='carousel-item__radio'/>
-      <img className='carousel-item__img' src={itemImgPath}/>
+      <div>
+        <input ref={radioRef} type='radio' name='options' className='carousel-item__radio' />
+        <img className='carousel-item__img' src={itemImgPath} />
+      </div>
+      <p className='carousel-item__label'>{itemName}</p>
     </div>
   )
 }

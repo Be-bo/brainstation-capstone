@@ -13,6 +13,7 @@
         width: 100%;
         height: 100%;
         border-radius: $corner-radius;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         cursor: pointer;
     }
 
@@ -25,5 +26,10 @@
         right: 1%;
         accent-color: $interaction-color;
         cursor: pointer;
+    }
+
+    &__label{
+        margin-top: 0;
+        text-align: center;
     }
 }

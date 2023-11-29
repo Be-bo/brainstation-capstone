@@ -4,6 +4,7 @@
 .item{
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: var(--base-padding);
 
     &__generated-image{
@@ -12,7 +13,7 @@
         background-image: url('../../assets/clothing/bomber.png');
         background-repeat: no-repeat;
         background-size: contain;
-        border-radius: $corner-radius;
+        border-radius: $corner-radius*2;
     }
 
     &__heading{

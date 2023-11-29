@@ -50,6 +50,7 @@
     &__color-container{
         height: 75px;
         display: flex;
+        align-self: center;
         flex-direction: row;
         align-items: center;
         gap: var(--base-padding);
@@ -60,17 +61,58 @@
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        background-color: black;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         cursor: pointer;
+    }
 
-        &__--selected{
-            width: 45px;
-            height: 45px;
-        }
+    &__color-item--selected{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+
+    &__generate-btn{
+        width: var(--button-width);
+        height: var(--button-height);
+        max-width: var(--button-width);
+        max-height: var(--button-height);
+        align-self: center;
+        border: none;
+        background-color: $interaction-color;
+        border-radius: $corner-radius;
+        color: white;
+        cursor: pointer;
+        margin-bottom: var(--base-padding);
     }
 }
 
-
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; 
+    margin: var(--base-padding);
+  }
+  
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #333;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite; /* Animation properties */
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg); /* Rotates 360 degrees continuously */
+    }
+  }
 
 
 

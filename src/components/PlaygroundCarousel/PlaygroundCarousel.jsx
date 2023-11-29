@@ -13,6 +13,7 @@ function PlaygroundCarousel() {
     const [cardDimen, setCardDimen] = useState(200);
     const [itemWidth, setItemWidth] = useState(232);
     const [generatedItem, setGeneratedItem] = useState();
+    const [isGenerating, setIsGenerating] = useState(false);
 
     const [shirtIndex, setShirtIndex] = useState(1);
     const [topIndex, setTopIndex] = useState(1);
@@ -31,8 +32,8 @@ function PlaygroundCarousel() {
 
     // MARK: Use Effect
     useEffect(() => {
-        async function fetchData(){
-            try{
+        async function fetchData() {
+            try {
                 const shirtResponse = await axios.get('http://3.145.198.110:80/playground/shirt-layer');
                 setShirtItems(convertCategoryToArray(shirtResponse.data));
                 setShirtColors(shirtResponse.data.colors);
@@ -42,7 +43,7 @@ function PlaygroundCarousel() {
                 const bottomResponse = await axios.get('http://3.145.198.110:80/playground/bottom-layer');
                 setBottomItems(convertCategoryToArray(bottomResponse.data));
                 setBottomColors(bottomResponse.data.colors);
-            }catch (error){
+            } catch (error) {
                 console.log(error);
             }
         }
@@ -85,18 +86,19 @@ function PlaygroundCarousel() {
 
     // MARK: Handle Image Generation
     const handleGenerate = async () => {
+        setIsGenerating(true);
         const generationRequest = {
             "user-id": "test-user",
             "shirt": {
-                "name": shirtItems[shirtIndex+1].name,
+                "name": shirtItems[shirtIndex + 1].name,
                 "color": shirtColor
             },
             "top": {
-                "name": topItems[topIndex+1].name,
+                "name": topItems[topIndex + 1].name,
                 "color": topColor
             },
             "bottom": {
-                "name": bottomItems[bottomIndex+1].name,
+                "name": bottomItems[bottomIndex + 1].name,
                 "color": bottomColor
             },
         }
@@ -105,21 +107,24 @@ function PlaygroundCarousel() {
         const generationResponse = await axios.post('http://3.145.198.110:80/playground/generate', generationRequest);
         console.log(generationResponse);
         setGeneratedItem(generationResponse.data);
+        setIsGenerating(false);
     }
 
 
     // MARK: Click Handlers
-    const shirtColorClicked = (clickedIndex) =>{setShirtColor(shirtColors[clickedIndex]);}
-    const topColorClicked = (clickedIndex) => {setTopColor(topColors[clickedIndex]);}
-    const bottomColorClicked = (clickedIndex) => {setBottomColor(bottomColors[clickedIndex]);}
+    const shirtColorClicked = (clickedIndex) => { setShirtColor(shirtColors[clickedIndex]); }
+    const topColorClicked = (clickedIndex) => { setTopColor(topColors[clickedIndex]); }
+    const bottomColorClicked = (clickedIndex) => { setBottomColor(bottomColors[clickedIndex]); }
 
 
     // MARK: Return Statement
     return (
         <div className='carousel'>
 
+            <h1 style={{ alignSelf: 'center' }}>TOGA</h1>
+
             {/* MARK: Shirt Section */}
-            <h1>Shirt Layer:</h1>
+            <h2>Shirt Layer:</h2>
             <div className='carousel__section'>
                 {/* <button className='carousel__arrow carousel__left-arrow' onClick={() => updateIndex(leftmostIndex - 1)} /> */}
                 <div className='carousel__outer'>
@@ -129,7 +134,7 @@ function PlaygroundCarousel() {
                             let dimen = cardDimen;
                             if (index == shirtIndex + 1) dimen = cardDimen * 1.5;
                             return <PlaygroundCard key={index} itemWidth={dimen} itemHeight={dimen}
-                                itemClick={() => updateShirtIndex(index - 1)} itemImgPath={item.image} />
+                                itemClick={() => updateShirtIndex(index - 1)} itemImgPath={item.image} itemName={item.name} />
                         })}
                     </div>
                 </div>
@@ -137,17 +142,17 @@ function PlaygroundCarousel() {
             </div>
 
             <div className='carousel__color-container'>
-            {
-                shirtColors?.map((color, index) =>{
-                    return <div key={index} className='carousel__color-item' style={{backgroundColor: `${color}`}}
-                    onClick={() => shirtColorClicked(index)}></div>
-                })
-            }
+                {
+                    shirtColors?.map((color, index) => {
+                        return <div key={index} className={color == shirtColor ? 'carousel__color-item--selected' : 'carousel__color-item'} style={{ backgroundColor: `${color}` }}
+                            onClick={() => shirtColorClicked(index)}></div>
+                    })
+                }
             </div>
 
 
             {/* MARK: Top Layer */}
-            <h1>Top Layer:</h1>
+            <h2>Top Layer:</h2>
             <div className='carousel__section'>
                 {/* <button className='carousel__arrow carousel__left-arrow' onClick={() => updateIndex(leftmostIndex - 1)} /> */}
                 <div className='carousel__outer'>
@@ -157,7 +162,7 @@ function PlaygroundCarousel() {
                             let dimen = cardDimen;
                             if (index == topIndex + 1) dimen = cardDimen * 1.5;
                             return <PlaygroundCard key={index} itemWidth={dimen} itemHeight={dimen}
-                                itemClick={() => updateTopIndex(index - 1)} itemImgPath={item.image} />
+                                itemClick={() => updateTopIndex(index - 1)} itemImgPath={item.image} itemName={item.name} />
                         })}
                     </div>
                 </div>
@@ -165,19 +170,19 @@ function PlaygroundCarousel() {
             </div>
 
             <div className='carousel__color-container'>
-            {
-                topColors?.map((color, index) =>{
-                    return <div key={index} className='carousel__color-item' style={{backgroundColor: `${color}`}}
-                    onClick={()=>topColorClicked(index)}></div>
-                })
-            }
+                {
+                    topColors?.map((color, index) => {
+                        return <div key={index} className={color == topColor ? 'carousel__color-item--selected' : 'carousel__color-item'} style={{ backgroundColor: `${color}` }}
+                            onClick={() => topColorClicked(index)}></div>
+                    })
+                }
             </div>
 
 
 
 
             {/* MARK: Bottom Layer */}
-            <h1>Bottom Layer:</h1>
+            <h2>Bottom Layer:</h2>
             <div className='carousel__section'>
                 {/* <button className='carousel__arrow carousel__left-arrow' onClick={() => updateIndex(leftmostIndex - 1)} /> */}
                 <div className='carousel__outer'>
@@ -187,7 +192,7 @@ function PlaygroundCarousel() {
                             let dimen = cardDimen;
                             if (index == bottomIndex + 1) dimen = cardDimen * 1.5;
                             return <PlaygroundCard key={index} itemWidth={dimen} itemHeight={dimen}
-                                itemClick={() => updateBottomIndex(index - 1)} itemImgPath={item.image} />
+                                itemClick={() => updateBottomIndex(index - 1)} itemImgPath={item.image} itemName={item.name} />
                         })}
                     </div>
                 </div>
@@ -195,19 +200,30 @@ function PlaygroundCarousel() {
             </div>
 
             <div className='carousel__color-container'>
-            {
-                bottomColors?.map((color, index) =>{
-                    return <div key={index} className='carousel__color-item' style={{backgroundColor: `${color}`}}
-                    onClick={()=>bottomColorClicked(index)}></div>
-                })
-            }
+                {
+                    bottomColors?.map((color, index) => {
+                        { console.log(index); console.log(shirtIndex); console.log(color); }
+                        return <div key={index} className={color == bottomColor ? 'carousel__color-item--selected' : 'carousel__color-item'} style={{ backgroundColor: `${color}` }}
+                            onClick={() => bottomColorClicked(index)}></div>
+                    })
+                }
             </div>
-            <button onClick={handleGenerate}>Generate</button>
 
-            
+
+            {/* // MARK: Generate Button & Loading Wheel */}
+            <button className='carousel__generate-btn' onClick={handleGenerate}>Generate</button>
+            <div>
+                {isGenerating && (
+                    <div className="loader">
+                        <div className="spinner"></div>
+                    </div>
+                )}
+            </div>
+
+
             {/* // MARK: Generated Item Result */}
-            {generatedItem ? <GeneratedItem itemData={generatedItem}/> : <p>This is where your generated image will display.</p>}
-            
+            {generatedItem ? <GeneratedItem itemData={generatedItem} /> : <p style={{ alignSelf: 'center' }}>This is where your generated image will display.</p>}
+
         </div>
     )
 }
