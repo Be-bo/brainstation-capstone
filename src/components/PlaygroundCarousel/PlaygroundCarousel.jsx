@@ -28,6 +28,28 @@ function PlaygroundCarousel() {
     const [shirtColors, setShirtColors] = useState([]);
     const [topColors, setTopColors] = useState([]);
     const [bottomColors, setBottomColors] = useState([]);
+    
+    const colorHexList = {
+    "Black": {hex: "#000000"},
+    "White": {hex: "#111111"},
+    "Grey": {hex: "#808080"},
+    "Brown": {hex: "#A52A2A"},
+    "Beige": {hex: "#F5F5DC"},
+    "Navy": {hex: "#000080"},
+    "Olive": {hex: "#808000"},
+    "Burgundy": {hex: "#800020"},
+    "Red": {hex: "#B22222"},
+    "Blue": {hex: "#4169E1"},
+    "Green": {hex: "#228B22"},
+    "Yellow": {hex: "#FFD700"},
+    "Purple": {hex: "#6A0DAD"},
+    "Teal": {hex: "#008B8B"},
+    "Cream": {hex: "#FFEFD5"},
+    "Charcoal": {hex: "#464646"},
+    "Tan": {hex: "#F0E68C"},
+    "Maroon": {hex: "#B03060"},
+    "Pink": {hex: "#FFB6C1"}};
+
 
 
     // MARK: Use Effect
@@ -102,7 +124,6 @@ function PlaygroundCarousel() {
                 "color": bottomColor
             },
         }
-        console.log(generationRequest);
 
         const generationResponse = await axios.post('http://3.145.198.110:80/playground/generate', generationRequest);
         console.log(generationResponse);
@@ -144,7 +165,7 @@ function PlaygroundCarousel() {
             <div className='carousel__color-container'>
                 {
                     shirtColors?.map((color, index) => {
-                        return <div key={index} className={color == shirtColor ? 'carousel__color-item--selected' : 'carousel__color-item'} style={{ backgroundColor: `${color}` }}
+                        return <div key={index} className={color == shirtColor ? 'carousel__color-item--selected' : 'carousel__color-item'} style={{ backgroundColor: `${colorHexList[color].hex}` }}
                             onClick={() => shirtColorClicked(index)}></div>
                     })
                 }
@@ -172,7 +193,7 @@ function PlaygroundCarousel() {
             <div className='carousel__color-container'>
                 {
                     topColors?.map((color, index) => {
-                        return <div key={index} className={color == topColor ? 'carousel__color-item--selected' : 'carousel__color-item'} style={{ backgroundColor: `${color}` }}
+                        return <div key={index} className={color == topColor ? 'carousel__color-item--selected' : 'carousel__color-item'} style={{ backgroundColor: `${colorHexList[color].hex}` }}
                             onClick={() => topColorClicked(index)}></div>
                     })
                 }
@@ -202,8 +223,7 @@ function PlaygroundCarousel() {
             <div className='carousel__color-container'>
                 {
                     bottomColors?.map((color, index) => {
-                        { console.log(index); console.log(shirtIndex); console.log(color); }
-                        return <div key={index} className={color == bottomColor ? 'carousel__color-item--selected' : 'carousel__color-item'} style={{ backgroundColor: `${color}` }}
+                        return <div key={index} className={color == bottomColor ? 'carousel__color-item--selected' : 'carousel__color-item'} style={{ backgroundColor: `${colorHexList[color].hex}` }}
                             onClick={() => bottomColorClicked(index)}></div>
                     })
                 }
