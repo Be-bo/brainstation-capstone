@@ -1,17 +1,26 @@
-import React from 'react'
+import {useState, useRef} from 'react'
 import './PlaygroundCard.scss';
 
-function PlaygroundCard({textToDisplay, itemWidth, itemHeight, itemClick}) {
+function PlaygroundCard({itemWidth, itemHeight, itemClick, itemImgPath}) {
+  const radioRef = useRef(null);
+  const [radioChecked, setRadioChecked] = useState(false);
   
   const itemStyle = {
     minWidth: `${itemWidth}px`,
-    minHeight: `${itemHeight/2}px`,
-    maxHeight: `${itemHeight/2}px`,
+    maxWidth: `${itemWidth}px`,
+    minHeight: `${itemHeight}px`,
+    maxHeight: `${itemHeight}px`,
   };
 
+  const handleImageClick = () => {
+    radioRef.current.click();
+    itemClick();
+  }
+
   return (
-    <div className='carousel-item' style={itemStyle} onClick={itemClick}>
-      <p className='carousel-text'>{textToDisplay}</p>
+    <div className='carousel-item' style={itemStyle} onClick={handleImageClick}>
+      <input ref={radioRef} type='radio' name='options' className='carousel-item__radio'/>
+      <img className='carousel-item__img' src={itemImgPath}/>
     </div>
   )
 }

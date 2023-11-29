@@ -1,0 +1,21 @@
+@import '../../partials/variables';
+@import '../../partials/mixins';
+
+.item{
+    display: flex;
+    flex-direction: column;
+    padding: var(--base-padding);
+
+    &__generated-image{
+        width: 768px;
+        height: 768px;
+        background-image: url('../../assets/clothing/bomber.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        border-radius: $corner-radius;
+    }
+
+    &__heading{
+
+    }
+}

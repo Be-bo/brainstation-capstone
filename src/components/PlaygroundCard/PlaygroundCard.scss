@@ -6,8 +6,24 @@
     background-color: $background-color-secondary;
     border-radius: $corner-radius;
     margin: var(--base-padding);
-}
+    position: relative;
+    cursor: pointer;
 
-.carousel-text{
-    text-align: center;
+    &__img{
+        width: 100%;
+        height: 100%;
+        border-radius: $corner-radius;
+        cursor: pointer;
+    }
+
+    &__radio{
+        width: $radio-btn-dimen;
+        height: $radio-btn-dimen;
+        position: absolute;
+        z-index: 1;
+        top: 1%;
+        right: 1%;
+        accent-color: $interaction-color;
+        cursor: pointer;
+    }
 }
