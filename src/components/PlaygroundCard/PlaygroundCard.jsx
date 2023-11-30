@@ -13,14 +13,14 @@ function PlaygroundCard({ itemWidth, itemHeight, itemClick, itemImgPath, itemNam
   };
 
   const handleImageClick = () => {
-    radioRef.current.click();
+    // radioRef.current.click();
     itemClick();
   }
 
   return (
     <div className='carousel-item' style={itemStyle} onClick={handleImageClick}>
       <div>
-        <input ref={radioRef} type='radio' name='options' className='carousel-item__radio' />
+        {/* <input ref={radioRef} type='radio' name='options' className='carousel-item__radio' /> */}
         <img className='carousel-item__img' src={itemImgPath} />
       </div>
       <p className='carousel-item__label'>{itemName}</p>

@@ -10,14 +10,15 @@ import './PlaygroundCarousel.scss';
 
 // MARK: Return Function
 function PlaygroundCarousel() {
+    const cardIndexOffset = 2;
     const [cardDimen, setCardDimen] = useState(200);
     const [itemWidth, setItemWidth] = useState(232);
     const [generatedItem, setGeneratedItem] = useState();
     const [isGenerating, setIsGenerating] = useState(false);
 
-    const [shirtIndex, setShirtIndex] = useState(1);
-    const [topIndex, setTopIndex] = useState(1);
-    const [bottomIndex, setBottomIndex] = useState(1);
+    const [shirtIndex, setShirtIndex] = useState(0);
+    const [topIndex, setTopIndex] = useState(0);
+    const [bottomIndex, setBottomIndex] = useState(0);
     const [shirtColor, setShirtColor] = useState('Black');
     const [topColor, setTopColor] = useState('Black');
     const [bottomColor, setBottomColor] = useState('Black');
@@ -28,27 +29,28 @@ function PlaygroundCarousel() {
     const [shirtColors, setShirtColors] = useState([]);
     const [topColors, setTopColors] = useState([]);
     const [bottomColors, setBottomColors] = useState([]);
-    
+
     const colorHexList = {
-    "Black": {hex: "#000000"},
-    "White": {hex: "#111111"},
-    "Grey": {hex: "#808080"},
-    "Brown": {hex: "#A52A2A"},
-    "Beige": {hex: "#F5F5DC"},
-    "Navy": {hex: "#000080"},
-    "Olive": {hex: "#808000"},
-    "Burgundy": {hex: "#800020"},
-    "Red": {hex: "#B22222"},
-    "Blue": {hex: "#4169E1"},
-    "Green": {hex: "#228B22"},
-    "Yellow": {hex: "#FFD700"},
-    "Purple": {hex: "#6A0DAD"},
-    "Teal": {hex: "#008B8B"},
-    "Cream": {hex: "#FFEFD5"},
-    "Charcoal": {hex: "#464646"},
-    "Tan": {hex: "#F0E68C"},
-    "Maroon": {hex: "#B03060"},
-    "Pink": {hex: "#FFB6C1"}};
+        "Black": { hex: "#000000" },
+        "White": { hex: "#ffffff" },
+        "Grey": { hex: "#808080" },
+        "Brown": { hex: "#A52A2A" },
+        "Beige": { hex: "#F5F5DC" },
+        "Navy": { hex: "#000080" },
+        "Olive": { hex: "#808000" },
+        "Burgundy": { hex: "#800020" },
+        "Red": { hex: "#B22222" },
+        "Blue": { hex: "#4169E1" },
+        "Green": { hex: "#228B22" },
+        "Yellow": { hex: "#FFD700" },
+        "Purple": { hex: "#6A0DAD" },
+        "Teal": { hex: "#008B8B" },
+        "Cream": { hex: "#FFEFD5" },
+        "Charcoal": { hex: "#464646" },
+        "Tan": { hex: "#F0E68C" },
+        "Maroon": { hex: "#B03060" },
+        "Pink": { hex: "#FFB6C1" }
+    };
 
 
 
@@ -79,28 +81,28 @@ function PlaygroundCarousel() {
 
     // MARK: Carousel Index Update Functions
     const updateShirtIndex = (newIndex) => {
-        if (newIndex < -1) {
-            newIndex = -1;
-        } else if (newIndex >= shirtItems.length - 2) {
-            newIndex = shirtItems.length - 2;
+        if (newIndex < -cardIndexOffset) {
+            newIndex = -cardIndexOffset;
+        } else if (newIndex >= shirtItems.length - cardIndexOffset - 1) {
+            newIndex = shirtItems.length - cardIndexOffset - 1;
         }
         setShirtIndex(newIndex);
     };
 
     const updateTopIndex = (newIndex) => {
-        if (newIndex < -1) {
-            newIndex = -1;
-        } else if (newIndex >= topItems.length - 2) {
-            newIndex = topItems.length - 2;
+        if (newIndex < -cardIndexOffset) {
+            newIndex = -cardIndexOffset;
+        } else if (newIndex >= topItems.length - cardIndexOffset - 1) {
+            newIndex = topItems.length - cardIndexOffset - 1;
         }
         setTopIndex(newIndex);
     };
 
     const updateBottomIndex = (newIndex) => {
-        if (newIndex < -1) {
-            newIndex = -1;
-        } else if (newIndex >= bottomItems.length - 2) {
-            newIndex = bottomItems.length - 2;
+        if (newIndex < -cardIndexOffset) {
+            newIndex = -cardIndexOffset;
+        } else if (newIndex >= bottomItems.length - cardIndexOffset - 1) {
+            newIndex = bottomItems.length - cardIndexOffset - 1;
         }
         setBottomIndex(newIndex);
     };
@@ -112,15 +114,15 @@ function PlaygroundCarousel() {
         const generationRequest = {
             "user-id": "test-user",
             "shirt": {
-                "name": shirtItems[shirtIndex + 1].name,
+                "name": shirtItems[shirtIndex + cardIndexOffset].name,
                 "color": shirtColor
             },
             "top": {
-                "name": topItems[topIndex + 1].name,
+                "name": topItems[topIndex + cardIndexOffset].name,
                 "color": topColor
             },
             "bottom": {
-                "name": bottomItems[bottomIndex + 1].name,
+                "name": bottomItems[bottomIndex + cardIndexOffset].name,
                 "color": bottomColor
             },
         }
@@ -141,25 +143,31 @@ function PlaygroundCarousel() {
     // MARK: Return Statement
     return (
         <div className='carousel'>
+            <div style={{ backgroundColor: '#DDD3B3'}}>
+                <h1 style={{ textAlign: 'center' }}>TOGA</h1>
+            </div>
 
-            <h1 style={{ alignSelf: 'center' }}>TOGA</h1>
 
             {/* MARK: Shirt Section */}
             <h2>Shirt Layer:</h2>
             <div className='carousel__section'>
-                {/* <button className='carousel__arrow carousel__left-arrow' onClick={() => updateIndex(leftmostIndex - 1)} /> */}
+                <button className='carousel__arrow carousel__left-arrow' onClick={() => updateShirtIndex(shirtIndex - 1)} 
+                style={shirtIndex<=-cardIndexOffset ? {visibility: 'hidden'} : {visibility: 'visible'}}
+                />
                 <div className='carousel__outer'>
                     <div className='carousel__inner'
-                        style={{ transform: `translate(-${shirtIndex * itemWidth}px)` }}>
+                        style={shirtIndex <= shirtItems.length-1-2*cardIndexOffset ? { transform: `translate(-${shirtIndex * itemWidth}px)` } : {}}>
                         {shirtItems?.map((item, index) => {
                             let dimen = cardDimen;
-                            if (index == shirtIndex + 1) dimen = cardDimen * 1.5;
+                            if (index == shirtIndex + cardIndexOffset) dimen = cardDimen * 1.5;
                             return <PlaygroundCard key={index} itemWidth={dimen} itemHeight={dimen}
-                                itemClick={() => updateShirtIndex(index - 1)} itemImgPath={item.image} itemName={item.name} />
+                                itemClick={() => updateShirtIndex(index - cardIndexOffset)} itemImgPath={item.image} itemName={item.name} />
                         })}
                     </div>
                 </div>
-                {/* <button className='carousel__arrow carousel__right-arrow' onClick={() => updateIndex(leftmostIndex + 1)} /> */}
+                <button className='carousel__arrow carousel__right-arrow' onClick={() => updateShirtIndex(shirtIndex + 1)}
+                style={shirtIndex>=shirtItems.length-cardIndexOffset-1 ? {visibility: 'hidden'} : {visibility: 'visible'}}
+                />
             </div>
 
             <div className='carousel__color-container'>
@@ -175,19 +183,24 @@ function PlaygroundCarousel() {
             {/* MARK: Top Layer */}
             <h2>Top Layer:</h2>
             <div className='carousel__section'>
-                {/* <button className='carousel__arrow carousel__left-arrow' onClick={() => updateIndex(leftmostIndex - 1)} /> */}
+                <button className='carousel__arrow carousel__left-arrow' onClick={() => updateTopIndex(topIndex - 1)}
+                style={topIndex<=-cardIndexOffset ? {visibility: 'hidden'} : {visibility: 'visible'}}
+                />
                 <div className='carousel__outer'>
                     <div className='carousel__inner'
-                        style={{ transform: `translate(-${topIndex * itemWidth}px)` }}>
+                        style={topIndex <= topItems.length-1-2*cardIndexOffset ? { transform: `translate(-${topIndex * itemWidth}px)` }: 
+                        {transform: `translate(-${(topItems.length-1-2*cardIndexOffset) * itemWidth}px)`}}>
                         {topItems?.map((item, index) => {
                             let dimen = cardDimen;
-                            if (index == topIndex + 1) dimen = cardDimen * 1.5;
+                            if (index == topIndex + cardIndexOffset) dimen = cardDimen * 1.5;
                             return <PlaygroundCard key={index} itemWidth={dimen} itemHeight={dimen}
-                                itemClick={() => updateTopIndex(index - 1)} itemImgPath={item.image} itemName={item.name} />
+                                itemClick={() => updateTopIndex(index - cardIndexOffset)} itemImgPath={item.image} itemName={item.name} />
                         })}
                     </div>
                 </div>
-                {/* <button className='carousel__arrow carousel__right-arrow' onClick={() => updateIndex(leftmostIndex + 1)} /> */}
+                <button className='carousel__arrow carousel__right-arrow' onClick={() => updateTopIndex(topIndex + 1)}
+                style={topIndex>=topItems.length-cardIndexOffset-1 ? {visibility: 'hidden'} : {visibility: 'visible'}}
+                />
             </div>
 
             <div className='carousel__color-container'>
@@ -205,19 +218,24 @@ function PlaygroundCarousel() {
             {/* MARK: Bottom Layer */}
             <h2>Bottom Layer:</h2>
             <div className='carousel__section'>
-                {/* <button className='carousel__arrow carousel__left-arrow' onClick={() => updateIndex(leftmostIndex - 1)} /> */}
+                <button className='carousel__arrow carousel__left-arrow' onClick={() => updateBottomIndex(bottomIndex - 1)}
+                style={bottomIndex<=-cardIndexOffset ? {visibility: 'hidden'} : {visibility: 'visible'}}
+                />
                 <div className='carousel__outer'>
                     <div className='carousel__inner'
-                        style={{ transform: `translate(-${bottomIndex * itemWidth}px)` }}>
+                        style={bottomIndex <= bottomItems.length-1-2*cardIndexOffset ? { transform: `translate(-${bottomIndex * itemWidth}px)` } :
+                        {transform: `translate(-${bottomItems.length-1-2*cardIndexOffset * itemWidth}px)`}}>
                         {bottomItems?.map((item, index) => {
                             let dimen = cardDimen;
-                            if (index == bottomIndex + 1) dimen = cardDimen * 1.5;
+                            if (index == bottomIndex + cardIndexOffset) dimen = cardDimen * 1.5;
                             return <PlaygroundCard key={index} itemWidth={dimen} itemHeight={dimen}
-                                itemClick={() => updateBottomIndex(index - 1)} itemImgPath={item.image} itemName={item.name} />
+                                itemClick={() => updateBottomIndex(index - cardIndexOffset)} itemImgPath={item.image} itemName={item.name} />
                         })}
                     </div>
                 </div>
-                {/* <button className='carousel__arrow carousel__right-arrow' onClick={() => updateIndex(leftmostIndex + 1)} /> */}
+                <button className='carousel__arrow carousel__right-arrow' onClick={() => updateBottomIndex(bottomIndex + 1)}
+                style={bottomIndex>=bottomItems.length-cardIndexOffset-1 ? {visibility: 'hidden'} : {visibility: 'visible'}}
+                />
             </div>
 
             <div className='carousel__color-container'>
