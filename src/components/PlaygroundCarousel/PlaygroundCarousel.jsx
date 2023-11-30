@@ -1,18 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { getCssValue, convertCategoryToArray } from '../../helpers';
 import axios from 'axios';
+import { getCssValue, convertCategoryToArray, colorHexList } from '../../helpers';
+import './PlaygroundCarousel.scss';
 import PlaygroundCard from '../PlaygroundCard/PlaygroundCard'
 import GeneratedItem from '../GeneratedItem/GeneratedItem';
-import './PlaygroundCarousel.scss';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
-
 
 
 
 // MARK: Return Function
 function PlaygroundCarousel() {
     const cardIndexOffset = 2;
+
     const [cardDimen, setCardDimen] = useState(200);
     const [itemWidth, setItemWidth] = useState(232);
     const [generatedItem, setGeneratedItem] = useState();
@@ -21,38 +21,16 @@ function PlaygroundCarousel() {
     const [shirtIndex, setShirtIndex] = useState(0);
     const [topIndex, setTopIndex] = useState(0);
     const [bottomIndex, setBottomIndex] = useState(0);
-    const [shirtColor, setShirtColor] = useState('Blue');
-    const [topColor, setTopColor] = useState('Blue');
-    const [bottomColor, setBottomColor] = useState('Blue');
-
     const [shirtItems, setShirtItems] = useState([]);
     const [topItems, setTopItems] = useState([]);
     const [bottomItems, setBottomItems] = useState([]);
+
+    const [shirtColor, setShirtColor] = useState('Blue');
+    const [topColor, setTopColor] = useState('Blue');
+    const [bottomColor, setBottomColor] = useState('Blue');
     const [shirtColors, setShirtColors] = useState([]);
     const [topColors, setTopColors] = useState([]);
     const [bottomColors, setBottomColors] = useState([]);
-
-    const colorHexList = {
-        "Black": { hex: "#000000" },
-        "White": { hex: "#ffffff" },
-        "Grey": { hex: "#808080" },
-        "Brown": { hex: "#A52A2A" },
-        "Beige": { hex: "#F5F5DC" },
-        "Navy": { hex: "#000080" },
-        "Olive": { hex: "#808000" },
-        "Burgundy": { hex: "#800020" },
-        "Red": { hex: "#B22222" },
-        "Blue": { hex: "#4169E1" },
-        "Green": { hex: "#228B22" },
-        "Yellow": { hex: "#FFD700" },
-        "Purple": { hex: "#6A0DAD" },
-        "Teal": { hex: "#008B8B" },
-        "Cream": { hex: "#FFEFD5" },
-        "Charcoal": { hex: "#464646" },
-        "Tan": { hex: "#F0E68C" },
-        "Maroon": { hex: "#B03060" },
-        "Pink": { hex: "#FFB6C1" }
-    };
 
 
     // MARK: Use Effect
