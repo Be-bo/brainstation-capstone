@@ -1,5 +1,6 @@
 @import '../../partials/variables';
 @import '../../partials/mixins';
+@import '../../partials/global_tags';
 
 .carousel {
     overflow: hidden;
@@ -7,14 +8,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: $corner-radius;
-    margin: var(--base-padding);
+    margin: 0;
     margin-bottom: 200px;
 
     &__section{
         display: flex;
         flex-direction: row;
         align-items: center;
+        background-color: $background-color-secondary;
+        border-radius: $corner-radius;
     }
 
     &__outer {
@@ -24,12 +26,6 @@
         display: inline-block;
         flex-direction: row;
         align-items: center;
-        background-color: $background-color-secondary;
-        border-radius: $corner-radius;
-
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
     }
 
     &__inner {
@@ -44,9 +40,10 @@
         background-size: contain;
         background-repeat: no-repeat;
         border: none;
+        border-radius: 0;
         background-color: transparent;
+        box-shadow: none;
         cursor: pointer;
-        z-index: 1;
     }
 
     &__left-arrow {
@@ -75,7 +72,7 @@
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: $default-shadow;
         cursor: pointer;
     }
 
@@ -83,54 +80,12 @@
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: $default-shadow;
         cursor: pointer;
     }
 
     &__generate-btn {
-        width: var(--button-width);
-        height: var(--button-height);
-        max-width: var(--button-width);
-        max-height: var(--button-height);
         align-self: center;
-        border: none;
-        background-color: $interaction-color;
-        border-radius: $corner-radius;
-        color: white;
-        cursor: pointer;
         margin-bottom: var(--base-padding);
     }
 }
-
-.loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    margin: var(--base-padding);
-}
-
-.spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-top: 4px solid #333;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-    /* Animation properties */
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-        /* Rotates 360 degrees continuously */
-    }
-}
-
-.carousel__outer::-webkit-scrollbar {
-    display: none; /* Hide the scrollbar */
-  }
