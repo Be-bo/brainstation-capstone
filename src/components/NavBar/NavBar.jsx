@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './NavBar.scss';
 
 
-function NavBar() {
+function NavBar({isPlayground}) {
     return (
         <nav className="nav-bar">
             <Link to="/" className="nav-bar__logo-link">
@@ -12,7 +12,7 @@ function NavBar() {
 
             <div className='nav-bar__container-right'>
                 <Link to='/playground'>
-                    <button className='nav-bar__create-btn'>Create</button>
+                    {!isPlayground && (<button className='nav-bar__create-btn'>Create</button>)}
                 </Link>
 
                 <Link to='/account'>

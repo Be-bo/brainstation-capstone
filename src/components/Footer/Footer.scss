@@ -1,0 +1,17 @@
+@import '../../partials/variables';
+@import '../../partials/mixins';
+@import '../../partials/global_tags';
+
+.footer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--base-padding);
+    background-color: $brand-color;
+
+    &__qr{
+        width: 128px;
+        height: 128px;
+    }
+}

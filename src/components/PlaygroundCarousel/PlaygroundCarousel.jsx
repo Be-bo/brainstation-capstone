@@ -5,6 +5,7 @@ import PlaygroundCard from '../PlaygroundCard/PlaygroundCard'
 import GeneratedItem from '../GeneratedItem/GeneratedItem';
 import './PlaygroundCarousel.scss';
 import NavBar from '../NavBar/NavBar';
+import Footer from '../Footer/Footer';
 
 
 
@@ -143,12 +144,13 @@ function PlaygroundCarousel() {
     // MARK: Return Statement
     return (
         <div>
-            <NavBar />
+            <NavBar isPlayground={true} />
 
             <div className='carousel'>
 
                 {/* MARK: Top Layer */}
-                <h2>Top</h2>
+                {/* <h2>Top</h2> */}
+
                 <div className='carousel__section'>
                     <button className='carousel__arrow carousel__left-arrow' onClick={() => updateTopIndex(topIndex - 1)}
                         style={topIndex <= -cardIndexOffset ? { visibility: 'hidden' } : { visibility: 'visible' }}
@@ -181,7 +183,8 @@ function PlaygroundCarousel() {
 
 
                 {/* MARK: Shirt Section */}
-                <h2>Shirt</h2>
+                {/* <h2>Shirt</h2> */}
+
                 <div className='carousel__section'>
                     <button className='carousel__arrow carousel__left-arrow' onClick={() => updateShirtIndex(shirtIndex - 1)}
                         style={shirtIndex <= -cardIndexOffset ? { visibility: 'hidden' } : { visibility: 'visible' }}
@@ -213,7 +216,8 @@ function PlaygroundCarousel() {
 
 
                 {/* MARK: Bottom Layer */}
-                <h2>Bottom</h2>
+                {/* <h2>Bottom</h2> */}
+
                 <div className='carousel__section'>
                     <button className='carousel__arrow carousel__left-arrow' onClick={() => updateBottomIndex(bottomIndex - 1)}
                         style={bottomIndex <= -cardIndexOffset ? { visibility: 'hidden' } : { visibility: 'visible' }}
@@ -260,6 +264,8 @@ function PlaygroundCarousel() {
                 {generatedItem ? <GeneratedItem itemData={generatedItem} /> : <p style={{ alignSelf: 'center' }}>This is where your generated image will display.</p>}
 
             </div>
+
+            <Footer/>
         </div>
 
     )
