@@ -1,5 +1,6 @@
 @import '../../partials/variables';
 @import '../../partials/mixins';
+@import '../../partials/global_tags';
 
 .item {
     max-width: $generated-item-width;
@@ -14,6 +15,7 @@
         background-repeat: no-repeat;
         background-size: contain;
         border-radius: $corner-radius*2;
+        box-shadow: $default-shadow;
     }
 
     &__heading {}
@@ -35,6 +37,8 @@
 
     &__details-item {
         max-width: 90%;
+        box-shadow: $default-shadow;
+        border-radius: $corner-radius;
     }
 
     &__qr {}

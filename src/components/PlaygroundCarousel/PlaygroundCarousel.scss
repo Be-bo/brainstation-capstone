@@ -16,6 +16,7 @@
         align-items: center;
         background-color: $background-color-secondary;
         border-radius: $corner-radius;
+        box-shadow: $default-shadow;
     }
 
     &__outer {

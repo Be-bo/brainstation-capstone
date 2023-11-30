@@ -1,19 +1,12 @@
 import { useState, useEffect } from 'react'
 import './GeneratedItem.scss';
 import QRCode from 'qrcode.react';
-import bomber from '../../assets/clothing/bomber.png';
 import { colorHexList, topUrlList, shirtUrlList, bottomUrlList } from '../../helpers';
 
 function GeneratedItem({ itemData}) {
   const [qrCodeValue, setQRCodeValue] = useState('');
-
-  useEffect(() => {
-    if (itemData?.images[0]) generateQRCode(itemData?.images[0]);
-  }, []);
-
-  const generateQRCode = (url) => {
-    setQRCodeValue(url);
-  };
+  const generateQRCode = (url) => {setQRCodeValue(url);};
+  useEffect(() => {if (itemData?.images[0]) generateQRCode(itemData?.images[0]);}, []);
 
   return (
     <div className='item'>

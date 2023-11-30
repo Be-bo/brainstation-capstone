@@ -97,7 +97,7 @@ function PlaygroundCarousel() {
     const handleGenerate = async () => {
         setIsGenerating(true);
         const generationRequest = {
-            "user-id": "test-user",
+            "userId": "test-user",
             "shirt": {
                 "name": shirtItems[shirtIndex + cardIndexOffset].name,
                 "color": shirtColor

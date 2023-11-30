@@ -1,0 +1,19 @@
+@import '../../partials/variables';
+@import '../../partials/mixins';
+@import '../../partials/global_tags';
+
+.account{
+    
+    display: flex;
+    justify-content: center;
+
+    &__history-grid{
+        display: grid;
+        grid-template-columns: repeat(2, $generated-item-width);
+        gap: calc(var(--base-padding)*3);
+    }
+
+    &__grid-item{
+
+    }
+}
