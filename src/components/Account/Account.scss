@@ -8,9 +8,9 @@
     justify-content: center;
 
     &__history-grid{
+        margin: 0 auto;
         display: grid;
-        grid-template-columns: repeat(2, $generated-item-width);
-        gap: calc(var(--base-padding)*3);
+        grid-template-columns: repeat(2, 1fr);
     }
 
     &__grid-item{

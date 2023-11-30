@@ -7,7 +7,7 @@ function NavBar({isPlayground}) {
     return (
         <nav className="nav-bar">
             <Link to="/" className="nav-bar__logo-link">
-                <h1>TOGA</h1>
+                <h1 className='nav-bar__logo'>TOGA</h1>
             </Link>
 
             <div className='nav-bar__container-right'>
