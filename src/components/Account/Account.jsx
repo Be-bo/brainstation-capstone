@@ -10,7 +10,7 @@ function Account() {
 
   useEffect(()=>{
     async function fetchHistory(){
-      const response = await axios.get('http://3.145.198.110:80/account/history/test-user');
+      const response = await axios.get(`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/account/history/test-user`);
       setHistoryItems(response.data);
     }
     fetchHistory();

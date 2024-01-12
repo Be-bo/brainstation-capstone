@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef } from 'react';
 import './PlaygroundCard.scss';
 
 function PlaygroundCard({ itemWidth, itemHeight, itemClick, itemImgPath, itemName }) {
