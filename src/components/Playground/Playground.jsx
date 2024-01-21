@@ -35,39 +35,15 @@ function Playground() {
         setIsGenerating(false);
     }
 
-    const updateCarouselValue = (carouselType, isColor, newValue) => {
-        if(isColor){
-            setGenerationRequest((prevState) => ({
-                ...prevState,
-                [carouselType]: {
-                    ...prevState[carouselType],
-                    "color": newValue
-                }
-            }));
-        }else{
-            setGenerationRequest((prevState) => ({
-                ...prevState,
-                [carouselType]: {
-                    ...prevState[carouselType],
-                    "name": newValue
-                }
-            }));
-        }
-
-        setTimeout(() => {
-            console.log(generationRequest);
-        }, 2000);
-    }
-
     return (
         <div>
             {/* // MARK: Top */}
             <NavBar isPlayground={true} />
 
             {/* // MARK: Carousels */}
-            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/top-layer`} updateCarouselValue={(carouselType, isColor, newValue) => updateCarouselValue(carouselType, isColor, newValue)}/>
-            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/shirt-layer`} updateCarouselValue={(carouselType, isColor, newValue) => updateCarouselValue(carouselType, isColor, newValue)}/>
-            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/bottom-layer`} updateCarouselValue={(carouselType, isColor, newValue) => updateCarouselValue(carouselType, isColor, newValue)}/>
+            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/top-layer`} carouselCategoryId={'topCategory'}/>
+            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/shirt-layer`} carouselCategoryId={'shirtCategory'}/>
+            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/bottom-layer`} carouselCategoryId={'bottomCategory'}/>
 
 
             {/* // MARK: Bottom */}

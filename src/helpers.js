@@ -80,3 +80,21 @@ export const bottomUrlList = {
     "Cargo Pants": "http://3.145.198.110:80/public/cargo-pants.png",
     "Dress Pants": "http://3.145.198.110:80/public/dress-pants.png",
 };
+
+export const playgroundDataSchema = {
+    shirtCategory:
+    {
+        name: '',
+        color: '',
+    },
+    topCategory:
+    {
+        name: '',
+        color: '',
+    },
+    bottomCategory:
+    {
+        name: '',
+        color: ''
+    },
+};

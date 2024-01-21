@@ -2,16 +2,19 @@ import React, { useState, useRef, useEffect } from 'react'
 import axios from 'axios';
 import { getCssValue, convertCategoryToArray, colorHexList } from '../../helpers';
 import './PlaygroundCarousel.scss';
-import PlaygroundCard from '../PlaygroundCard/PlaygroundCard'
-import GeneratedItem from '../GeneratedItem/GeneratedItem';
-import NavBar from '../NavBar/NavBar';
-import Footer from '../Footer/Footer';
+import PlaygroundCard from '../PlaygroundCard/PlaygroundCard';
+import {updateProperty} from '../Playground/PlaygroundSlice';
+import {useSelector, useDispatch} from 'react-redux';
 
 
 
 // MARK: Return Function
-function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWidth, pullUrl, updateCarouselValue}) {
+function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWidth, pullUrl, carouselCategoryId }) {
+    // const playgroundData = useSelector((state) => state.playgroundSelection.data);
+    const dispatch = useDispatch();
+
     const cardIndexOffset = defaultIndexOffset;
+
     const [cardDimen, setCardDimen] = useState(defaultCardDimen);
     const [itemWidth, setItemWidth] = useState(defaultItemWidth);
 
@@ -20,6 +23,12 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
 
     const [currentColor, setCurrentColor] = useState('Blue');
     const [availableColors, setAvailableColors] = useState([]);
+
+    dispatch(updateProperty({
+        category: carouselCategoryId,
+        property: 'color',
+        value: 'red',
+    }));
 
 
     // MARK: Use Effect
@@ -41,6 +50,7 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
     }, []);
 
 
+    // TODO: left off
     // MARK: Carousel Index Update Functions
     const updateItemIndex = (newIndex) => {
         if (newIndex < -cardIndexOffset) {
@@ -50,7 +60,7 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
         }
         setItemIndex(newIndex);
 
-        updateCarouselValue() // TODO: left off realizing I need a better system
+        
     };
 
 
