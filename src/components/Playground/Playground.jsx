@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Playground.scss';
 import PlaygroundCarousel from '../PlaygroundCarousel/PlaygroundCarousel';
-import OldCombinedCarousel from '../PlaygroundCarousel/OldCombinedCarousel';
 import Footer from '../Footer/Footer';
 import NavBar from '../NavBar/NavBar';
 import GeneratedItem from '../GeneratedItem/GeneratedItem';
