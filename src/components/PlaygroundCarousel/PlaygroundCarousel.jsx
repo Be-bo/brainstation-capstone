@@ -10,7 +10,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 // MARK: Return Function
 function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWidth, pullUrl, carouselCategoryId }) {
-    // const playgroundData = useSelector((state) => state.playgroundSelection.data);
+    const playgroundData = useSelector((state) => state.playgroundSelection.data);
     const dispatch = useDispatch();
 
     const cardIndexOffset = defaultIndexOffset;
@@ -19,16 +19,14 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
     const [itemWidth, setItemWidth] = useState(defaultItemWidth);
 
     const [itemIndex, setItemIndex] = useState(0);
-    const [items, setItems] = useState([]);
+    const [availableItems, setAvailableItems] = useState([]);
 
     const [currentColor, setCurrentColor] = useState('Blue');
     const [availableColors, setAvailableColors] = useState([]);
 
-    dispatch(updateProperty({
-        category: carouselCategoryId,
-        property: 'color',
-        value: 'red',
-    }));
+    useEffect(() => {
+        // console.log(playgroundData); // Log the latest playgroundData when it changes
+    }, [playgroundData]);
 
 
     // MARK: Use Effect
@@ -36,8 +34,12 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
         async function fetchData() {
             try {
                 const itemsResponse = await axios.get(pullUrl);
-                setItems(convertCategoryToArray(itemsResponse.data));
+                const itemsArray = convertCategoryToArray(itemsResponse.data);
+                setAvailableItems(itemsArray);
                 setAvailableColors(itemsResponse.data.colors);
+
+                dispatch(updateProperty({category: carouselCategoryId, property: 'name', value: itemsArray[cardIndexOffset].name}));
+                dispatch(updateProperty({category: carouselCategoryId, property: 'color', value: 'Blue'}));   
             } catch (error) {
                 console.log(error);
             }
@@ -50,23 +52,24 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
     }, []);
 
 
-    // TODO: left off
     // MARK: Carousel Index Update Functions
-    const updateItemIndex = (newIndex) => {
+    const clothingItemClicked = (newIndex) => {
         if (newIndex < -cardIndexOffset) {
             newIndex = -cardIndexOffset;
-        } else if (newIndex >= items.length - cardIndexOffset - 1) {
-            newIndex = items.length - cardIndexOffset - 1;
+        } else if (newIndex >= availableItems.length - cardIndexOffset - 1) {
+            newIndex = availableItems.length - cardIndexOffset - 1;
         }
         setItemIndex(newIndex);
 
-        
+        dispatch(updateProperty({ category: carouselCategoryId, property: 'name', value: availableItems[newIndex + cardIndexOffset].name}));
     };
 
 
     // MARK: Click Handlers
     const colorClicked = (clickedIndex) => { 
         setCurrentColor(availableColors[clickedIndex]);
+
+        dispatch(updateProperty({ category: carouselCategoryId, property: 'color', value: availableColors[clickedIndex]}));
     }
 
 
@@ -80,23 +83,23 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
                 {/* <h2>Top</h2> */}
 
                 <div className='carousel__section'>
-                    <button className='carousel__arrow carousel__left-arrow' onClick={() => updateItemIndex(itemIndex - 1)}
+                    <button className='carousel__arrow carousel__left-arrow' onClick={() => clothingItemClicked(itemIndex - 1)}
                         style={itemIndex <= -cardIndexOffset ? { visibility: 'hidden' } : { visibility: 'visible' }}
                     />
                     <div className='carousel__outer'>
                         <div className='carousel__inner'
-                            style={itemIndex <= items.length - 1 - 2 * cardIndexOffset ? { transform: `translate(-${itemIndex * itemWidth}px)` } :
-                                { transform: `translate(-${(items.length - 1 - 2 * cardIndexOffset) * itemWidth}px)` }}>
-                            {items?.map((item, index) => {
+                            style={itemIndex <= availableItems.length - 1 - 2 * cardIndexOffset ? { transform: `translate(-${itemIndex * itemWidth}px)` } :
+                                { transform: `translate(-${(availableItems.length - 1 - 2 * cardIndexOffset) * itemWidth}px)` }}>
+                            {availableItems?.map((item, index) => {
                                 let dimen = cardDimen;
                                 if (index == itemIndex + cardIndexOffset) dimen = cardDimen * 1.5;
                                 return <PlaygroundCard key={index} itemWidth={dimen} itemHeight={dimen}
-                                    itemClick={() => updateItemIndex(index - cardIndexOffset)} itemImgPath={item.image} itemName={item.name} />
+                                    itemClick={() => clothingItemClicked(index - cardIndexOffset)} itemImgPath={item.image} itemName={item.name} />
                             })}
                         </div>
                     </div>
-                    <button className='carousel__arrow carousel__right-arrow' onClick={() => updateItemIndex(itemIndex + 1)}
-                        style={itemIndex >= items.length - cardIndexOffset - 1 ? { visibility: 'hidden' } : { visibility: 'visible' }}
+                    <button className='carousel__arrow carousel__right-arrow' onClick={() => clothingItemClicked(itemIndex + 1)}
+                        style={itemIndex >= availableItems.length - cardIndexOffset - 1 ? { visibility: 'hidden' } : { visibility: 'visible' }}
                     />
                 </div>
 

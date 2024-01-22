@@ -3,6 +3,6 @@ import playgroundReducer from '../components/Playground/PlaygroundSlice';
 
 export default configureStore({
     reducer: {
-        counter: playgroundReducer,
+        playgroundSelection: playgroundReducer,
     },
 });

@@ -3,23 +3,9 @@ import {createSlice} from '@reduxjs/toolkit';
 
 export const playgroundSlice = createSlice ({
     name: 'playgroundSelection',
-    initialState: {data: {
-        shirtCategory:
-        {
-            name: '',
-            color: '',
-        },
-        topCategory:
-        {
-            name: '',
-            color: '',
-        },
-        bottomCategory:
-        {
-            name: '',
-            color: ''
-        },
-    }},
+    initialState:{
+        data: playgroundDataSchema
+    },
     reducers: {
         updateProperty: (state, action) => {
             const { category, property, value } = action.payload;
@@ -30,7 +16,6 @@ export const playgroundSlice = createSlice ({
             // immutable state based off those changes.
             // Also, no return statement is required from these functions.
 
-            // TODO: LEFT OFF, just figured this out finally!
             try{
                 state.data[category][property] = value;
             }catch(e){

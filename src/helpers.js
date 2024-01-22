@@ -82,17 +82,17 @@ export const bottomUrlList = {
 };
 
 export const playgroundDataSchema = {
-    shirtCategory:
+    shirt:
     {
         name: '',
         color: '',
     },
-    topCategory:
+    top:
     {
         name: '',
         color: '',
     },
-    bottomCategory:
+    bottom:
     {
         name: '',
         color: ''

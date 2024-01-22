@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Playground.scss';
 import PlaygroundCarousel from '../PlaygroundCarousel/PlaygroundCarousel';
 import OldCombinedCarousel from '../PlaygroundCarousel/OldCombinedCarousel';
@@ -6,26 +6,16 @@ import Footer from '../Footer/Footer';
 import NavBar from '../NavBar/NavBar';
 import GeneratedItem from '../GeneratedItem/GeneratedItem';
 import axios from 'axios';
+import {useSelector} from 'react-redux';
+import { playgroundDataSchema } from '../../helpers';
 
 
 function Playground() {
+    const playgroundData = useSelector((state) => state.playgroundSelection.data);
+    const userDataObject = {"userId": "test-user"}
     const [isGenerating, setIsGenerating] = useState(false);
     const [generatedItem, setGeneratedItem] = useState();
-    const [generationRequest, setGenerationRequest] = useState({
-        "userId": "test-user",
-        "shirt": {
-            "name": "Bomber",
-            "color": "Blue"
-        },
-        "top": {
-            "name": "Polo",
-            "color": "Blue"
-        },
-        "bottom": {
-            "name": "Jeans",
-            "color": "Blue"
-        }
-    });
+    const [generationRequest, setGenerationRequest] = useState({...userDataObject, ...playgroundDataSchema});
 
     const handleGenerate = async () => {
         setIsGenerating(true);
@@ -35,15 +25,22 @@ function Playground() {
         setIsGenerating(false);
     }
 
+    useEffect(() => {
+        const updatedRequest = {...userDataObject, ...playgroundData}; // using spread operator
+        setGenerationRequest(updatedRequest);
+    }, [playgroundData]);
+
+
+    // MARK: Return Statement
     return (
         <div>
             {/* // MARK: Top */}
             <NavBar isPlayground={true} />
 
             {/* // MARK: Carousels */}
-            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/top-layer`} carouselCategoryId={'topCategory'}/>
-            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/shirt-layer`} carouselCategoryId={'shirtCategory'}/>
-            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/bottom-layer`} carouselCategoryId={'bottomCategory'}/>
+            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/top-layer`} carouselCategoryId={'top'}/>
+            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/shirt-layer`} carouselCategoryId={'shirt'}/>
+            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/bottom-layer`} carouselCategoryId={'bottom'}/>
 
 
             {/* // MARK: Bottom */}
