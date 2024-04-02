@@ -5,16 +5,16 @@ import Footer from '../Footer/Footer';
 import NavBar from '../NavBar/NavBar';
 import GeneratedItem from '../GeneratedItem/GeneratedItem';
 import axios from 'axios';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import { playgroundDataSchema } from '../../helpers';
 
 
 function Playground() {
     const playgroundData = useSelector((state) => state.playgroundSelection.data);
-    const userDataObject = {"userId": "test-user"}
+    const userDataObject = { "userId": "test-user" }
     const [isGenerating, setIsGenerating] = useState(false);
     const [generatedItem, setGeneratedItem] = useState();
-    const [generationRequest, setGenerationRequest] = useState({...userDataObject, ...playgroundDataSchema});
+    const [generationRequest, setGenerationRequest] = useState({ ...userDataObject, ...playgroundDataSchema });
 
     const handleGenerate = async () => {
         setIsGenerating(true);
@@ -25,7 +25,7 @@ function Playground() {
     }
 
     useEffect(() => {
-        const updatedRequest = {...userDataObject, ...playgroundData}; // using spread operator
+        const updatedRequest = { ...userDataObject, ...playgroundData }; // using spread operator
         setGenerationRequest(updatedRequest);
     }, [playgroundData]);
 
@@ -37,13 +37,15 @@ function Playground() {
             <NavBar isPlayground={true} />
 
             {/* // MARK: Carousels */}
-            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/top-layer`} carouselCategoryId={'top'}/>
-            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/shirt-layer`} carouselCategoryId={'shirt'}/>
-            <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/bottom-layer`} carouselCategoryId={'bottom'}/>
+
+            <div className='carousel-container'>
+                <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/top-layer`} carouselCategoryId={'top'} />
+                <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/shirt-layer`} carouselCategoryId={'shirt'} />
+                <PlaygroundCarousel defaultIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} pullUrl={`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/bottom-layer`} carouselCategoryId={'bottom'} />
 
 
-            {/* // MARK: Bottom */}
-            <button className='carousel__generate-btn' onClick={handleGenerate}>Generate</button>
+                {/* // MARK: Bottom */}
+                <button className='carousel__generate-btn' onClick={handleGenerate}>Generate</button>
                 <div>
                     {isGenerating && (
                         <div className="loader">
@@ -52,9 +54,10 @@ function Playground() {
                     )}
                 </div>
 
-            {generatedItem ? <GeneratedItem itemData={generatedItem} /> : <p style={{ alignSelf: 'center' }}>This is where your generated image will display.</p>}
+                {generatedItem ? <GeneratedItem itemData={generatedItem} /> : <p style={{ alignSelf: 'center' }}>This is where your generated image will display.</p>}
+            </div>
 
-            <Footer/>
+            <Footer />
         </div>
     );
 }
