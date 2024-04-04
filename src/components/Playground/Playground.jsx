@@ -4,6 +4,7 @@ import PlaygroundCarousel from '../PlaygroundCarousel/PlaygroundCarousel';
 import Footer from '../Footer/Footer';
 import NavBar from '../NavBar/NavBar';
 import GeneratedItem from '../GeneratedItem/GeneratedItem';
+import FaceUpload from '../FaceUpload/FaceUpload';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { playgroundDataSchema } from '../../helpers';
@@ -35,6 +36,7 @@ function Playground() {
         <div>
             {/* // MARK: Top */}
             <NavBar isPlayground={true} />
+            <FaceUpload/>
 
             {/* // MARK: Carousels */}
 
