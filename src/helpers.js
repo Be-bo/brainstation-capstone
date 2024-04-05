@@ -81,6 +81,14 @@ export const bottomUrlList = {
     "Dress Pants": "http://3.145.198.110:80/public/dress-pants.png",
 };
 
+export function setUpDefaultReduxCategoryItem(categoryId){
+    return {
+        category_id: categoryId,
+        selected_clothing_id: '',
+        selected_color: []
+    }
+}
+
 export const playgroundDataSchema = {
     shirt:
     {

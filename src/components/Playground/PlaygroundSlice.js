@@ -2,28 +2,52 @@ import {playgroundDataSchema} from '../../helpers';
 import {createSlice} from '@reduxjs/toolkit';
 
 export const playgroundSlice = createSlice ({
-    name: 'playgroundSelection',
+    name: 'playgroundData',
     initialState:{
-        data: playgroundDataSchema
+        user_data: {},
+        categories: [],
     },
-    reducers: {
-        updateProperty: (state, action) => {
-            const { category, property, value } = action.payload;
-            // Now you can use the category variable without issues
-            // Redux Toolkit allows us to write "mutating" logic in reducers. It
-            // doesn't actually mutate the state because it uses the Immer library,
-            // which detects changes to a "draft state" and produces a brand new
-            // immutable state based off those changes.
-            // Also, no return statement is required from these functions.
 
-            try{
-                state.data[category][property] = value;
-            }catch(e){
-                console.error('Error trying to save data to redux store: ', e)
-            }
-        }
+    reducers: {
+
+        setUserData(state, action){
+            return {
+                ...state,
+                user_data: action.payload,
+            };
+        },
+
+        updateUserData(state, action){
+            const {key, value} = action.payload;
+            return{
+                ...state,
+                user_data: {
+                    ...state.user_data,
+                    [key]: value,
+                }
+            };
+        },
+
+        addCategory(state, action){
+            return {
+                ...state,
+                categories: [...state.categories, action.payload],
+            };
+        },
+
+        updateCategoryValue(state, action){
+            const {index, key, value} = action.payload;
+            let updatedCategories = [...state.categories];
+            updatedCategories[index][key] = value;
+            // with the logic below the "state" would've been modified and this function would be returning at the same time
+            // Immer does not allow this, it has to be one or the other
+            // return {
+            //     ...state,
+            //     categories: updatedCategories,
+            // };
+        },
     }
 });
 
-export const {updateProperty} = playgroundSlice.actions; // action creators are generated for each case reducer function
+export const {setUserData, updateUserData, addCategory, updateCategoryValue} = playgroundSlice.actions; // action creators are generated for each case reducer function
 export default playgroundSlice.reducer;

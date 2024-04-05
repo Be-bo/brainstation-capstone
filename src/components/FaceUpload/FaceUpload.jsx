@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from 'react';
 import { useDropzone } from "react-dropzone";
+import {setUserData} from '../Playground/PlaygroundSlice';
+import {useSelector, useDispatch} from 'react-redux';
 import './FaceUpload.scss';
 
+
 function FaceUpload() {
+    const dispatch = useDispatch();
+    const reduxUserData = useSelector((state) => state.playgroundData.user_data);
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [thumbnail, setThumbnail] = useState(null);
     const onDrop = (files) => {
@@ -11,6 +16,7 @@ function FaceUpload() {
             const reader = new FileReader();
             reader.onload = () => {
                 setThumbnail(reader.result);
+                dispatch(setUserData({'face_image': reader.result}));
             };
             reader.readAsDataURL(files[0]);
         }
@@ -22,6 +28,10 @@ function FaceUpload() {
         },
         onDrop
     });
+
+    useEffect(() => {
+        // console.log(reduxUserData); // Log the latest playgroundData when it changes
+    }, [reduxUserData]);
 
 
     return (

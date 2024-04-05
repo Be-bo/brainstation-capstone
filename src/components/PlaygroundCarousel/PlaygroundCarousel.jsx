@@ -1,16 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { getCssValue, convertCategoryToArray, colorHexList } from '../../helpers';
 import './PlaygroundCarousel.scss';
 import PlaygroundCard from '../PlaygroundCard/PlaygroundCard';
-import {updateProperty} from '../Playground/PlaygroundSlice';
+import {updateCategoryValue, updateProperty} from '../Playground/PlaygroundSlice';
 import {useSelector, useDispatch} from 'react-redux';
 
 
 
 // MARK: Return Function
-function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWidth, pullUrl, carouselCategoryId }) {
-    const playgroundData = useSelector((state) => state.playgroundSelection.data);
+function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWidth, categoryIndex}) {
+    const reduxCategories = useSelector((state) => state.playgroundData.categories);
     const dispatch = useDispatch();
 
     const cardIndexOffset = defaultIndexOffset;
@@ -25,21 +25,27 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
     const [availableColors, setAvailableColors] = useState([]);
 
     useEffect(() => {
-        // console.log(playgroundData); // Log the latest playgroundData when it changes
-    }, [playgroundData]);
+        // console.log(reduxCategories); // Log the latest update
+        if(categoryIndex == 0){ // first exception
+
+        }else if (categoryIndex >= reduxCategories.length-1){ // last exception
+            
+        }else{ // standard case
+            if(reduxCategories[categoryIndex].color && reduxCategories[categoryIndex].color.length > 0){
+                // TODO: allow next
+            }
+        }
+    }, [reduxCategories]);
 
 
     // MARK: Use Effect
     useEffect(() => {
         async function fetchData() {
             try {
-                const itemsResponse = await axios.get(pullUrl);
-                const itemsArray = convertCategoryToArray(itemsResponse.data);
-                setAvailableItems(itemsArray);
-                setAvailableColors(itemsResponse.data.colors);
-
-                dispatch(updateProperty({category: carouselCategoryId, property: 'name', value: itemsArray[cardIndexOffset].name}));
-                dispatch(updateProperty({category: carouselCategoryId, property: 'color', value: 'Blue'}));   
+                const itemsResponse = await axios.get(`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/category`, {params: {categoryId: reduxCategories[categoryIndex]['category_id']}});
+                setAvailableItems(itemsResponse.data);
+                setAvailableColors(itemsResponse.data[defaultIndexOffset].colors);
+                dispatch(updateCategoryValue({index: categoryIndex, key: 'selected_clothing_id', value: itemsResponse.data[defaultIndexOffset].name}));
             } catch (error) {
                 console.log(error);
             }
@@ -52,7 +58,7 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
     }, []);
 
 
-    // MARK: Carousel Index Update Functions
+    // MARK: Click Handlers
     const clothingItemClicked = (newIndex) => {
         if (newIndex < -cardIndexOffset) {
             newIndex = -cardIndexOffset;
@@ -60,16 +66,13 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
             newIndex = availableItems.length - cardIndexOffset - 1;
         }
         setItemIndex(newIndex);
-
-        dispatch(updateProperty({ category: carouselCategoryId, property: 'name', value: availableItems[newIndex + cardIndexOffset].name}));
+        // setAvailableColors(availableItems[newIndex+defaultIndexOffset].colors); // TODO: down the line different colors sets for different clothing items will be available, fake it for now
+        dispatch(updateCategoryValue({index: categoryIndex, key: 'selected_clothing_id', value: availableItems[newIndex+defaultIndexOffset].name}));
     };
 
-
-    // MARK: Click Handlers
     const colorClicked = (clickedIndex) => { 
         setCurrentColor(availableColors[clickedIndex]);
-
-        dispatch(updateProperty({ category: carouselCategoryId, property: 'color', value: availableColors[clickedIndex]}));
+        dispatch(updateCategoryValue({index: categoryIndex, key: 'selected_color', value: availableItems[itemIndex+defaultIndexOffset].colors[clickedIndex]}));
     }
 
 
@@ -106,7 +109,7 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
                 <div className='carousel__color-container'>
                     {
                         availableColors?.map((color, index) => {
-                            return <div key={index} className={color == currentColor ? 'carousel__color-item--selected' : 'carousel__color-item'} style={{ backgroundColor: `${colorHexList[color].hex}` }}
+                            return <div key={index} className={color == currentColor ? 'carousel__color-item--selected' : 'carousel__color-item'} style={{ backgroundColor: `${color[1]}` }}
                                 onClick={() => colorClicked(index)}></div>
                         })
                     }
