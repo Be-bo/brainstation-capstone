@@ -1,22 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDropzone } from "react-dropzone";
-import {setUserData} from '../Playground/PlaygroundSlice';
-import {useSelector, useDispatch} from 'react-redux';
+import { setUserData } from '../Playground/PlaygroundSlice';
+import { useSelector, useDispatch } from 'react-redux';
 import './FaceUpload.scss';
 
 
-function FaceUpload() {
+function FaceUpload({ onFileUpload }) {
     const dispatch = useDispatch();
     const reduxUserData = useSelector((state) => state.playgroundData.user_data);
-    const [selectedFiles, setSelectedFiles] = useState([]);
+    // const [selectedFiles, setSelectedFiles] = useState([]);
     const [thumbnail, setThumbnail] = useState(null);
     const onDrop = (files) => {
-        setSelectedFiles(files);
+        // setSelectedFiles(files);
         if (files[0]) {
             const reader = new FileReader();
             reader.onload = () => {
                 setThumbnail(reader.result);
-                dispatch(setUserData({'face_image': reader.result}));
+                onFileUpload(files[0]);
+                dispatch(setUserData({'face_image': files[0].name}));
             };
             reader.readAsDataURL(files[0]);
         }
@@ -49,7 +50,7 @@ function FaceUpload() {
                         <img className="upload-container__thumbnail" src={thumbnail} alt="Selected file thumbnail" />
 
                         <div className="upload-container__thumbnail-overlay">
-                            <i className="fa-solid fa-pen-to-square fa-5x"/>
+                            <i className="fa-solid fa-pen-to-square fa-5x" />
                         </div>
                     </div>
                     :

@@ -1,0 +1,44 @@
+@import '../../partials/variables';
+@import '../../partials/mixins';
+@import '../../partials/global_tags';
+
+.playground-dialog{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 75vh;
+    height: 75vh;
+    background-color: white;
+    border-radius: $corner-radius;
+    position: fixed;
+    z-index: 4;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding-bottom: 0.25rem;
+    overflow: hidden;
+
+    &__image{
+        max-width: 105%;
+        margin-right: auto;
+        background-repeat: no-repeat;
+        background-size: contain;
+        // border-radius: $corner-radius*2;
+        box-shadow: $default-shadow;
+    }
+
+    &__cancel-icon{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        width: var(--icon-dimen);
+        height: var(--icon-dimen);
+        position: absolute;
+        top: 1%;
+        right: 1%;
+        background-color: rgba(255,255,255,0.35);
+        border-radius: 50%;
+    }
+}

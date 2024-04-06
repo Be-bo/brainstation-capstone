@@ -10,10 +10,12 @@ import {useSelector, useDispatch} from 'react-redux';
 
 // MARK: Return Function
 function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWidth, categoryIndex}) {
+    const cardIndexOffset = defaultIndexOffset;
     const reduxCategories = useSelector((state) => state.playgroundData.categories);
+    const reduxUserData = useSelector((state) => state.playgroundData.user_data);
     const dispatch = useDispatch();
 
-    const cardIndexOffset = defaultIndexOffset;
+    const [carouselEnabled, setCarouselEnabled] = useState(false);
 
     const [cardDimen, setCardDimen] = useState(defaultCardDimen);
     const [itemWidth, setItemWidth] = useState(defaultItemWidth);
@@ -25,17 +27,12 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
     const [availableColors, setAvailableColors] = useState([]);
 
     useEffect(() => {
-        // console.log(reduxCategories); // Log the latest update
         if(categoryIndex == 0){ // first exception
-
-        }else if (categoryIndex >= reduxCategories.length-1){ // last exception
-            
+            if(reduxUserData.hasOwnProperty('face_image') && reduxUserData['face_image'] != null) setCarouselEnabled(true);
         }else{ // standard case
-            if(reduxCategories[categoryIndex].color && reduxCategories[categoryIndex].color.length > 0){
-                // TODO: allow next
-            }
+            if(reduxCategories[categoryIndex-1]['selected_color'] && reduxCategories[categoryIndex-1]['selected_color'].length > 0) setCarouselEnabled(true);
         }
-    }, [reduxCategories]);
+    }, [reduxUserData, reduxCategories]);
 
 
     // MARK: Use Effect
@@ -45,7 +42,7 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
                 const itemsResponse = await axios.get(`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/category`, {params: {categoryId: reduxCategories[categoryIndex]['category_id']}});
                 setAvailableItems(itemsResponse.data);
                 setAvailableColors(itemsResponse.data[defaultIndexOffset].colors);
-                dispatch(updateCategoryValue({index: categoryIndex, key: 'selected_clothing_id', value: itemsResponse.data[defaultIndexOffset].name}));
+                dispatch(updateCategoryValue({index: categoryIndex, key: 'selected_clothing_id', value: itemsResponse.data[defaultIndexOffset]['_id']}));
             } catch (error) {
                 console.log(error);
             }
@@ -67,19 +64,19 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
         }
         setItemIndex(newIndex);
         // setAvailableColors(availableItems[newIndex+defaultIndexOffset].colors); // TODO: down the line different colors sets for different clothing items will be available, fake it for now
-        dispatch(updateCategoryValue({index: categoryIndex, key: 'selected_clothing_id', value: availableItems[newIndex+defaultIndexOffset].name}));
+        dispatch(updateCategoryValue({index: categoryIndex, key: 'selected_clothing_id', value: availableItems[newIndex+defaultIndexOffset]['_id']}));
     };
 
-    const colorClicked = (clickedIndex) => { 
+    const colorClicked = (clickedIndex) => {
         setCurrentColor(availableColors[clickedIndex]);
-        dispatch(updateCategoryValue({index: categoryIndex, key: 'selected_color', value: availableItems[itemIndex+defaultIndexOffset].colors[clickedIndex]}));
+        dispatch(updateCategoryValue({index: categoryIndex, key: 'selected_color', value: availableColors[clickedIndex]}));
     }
 
 
 
     // MARK: Return Statement
     return (
-        <div>
+        <div className='carousel-container'>
             <div className='carousel'>
 
                 {/* MARK: Top Layer */}
@@ -116,6 +113,8 @@ function PlaygroundCarousel({defaultIndexOffset, defaultCardDimen, defaultItemWi
                 </div>
 
             </div>
+
+            {!carouselEnabled && <div className='carousel-container__overlay'></div>}
         </div>
 
     )
