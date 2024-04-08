@@ -34,3 +34,6 @@ There was a recent update to the public IP of the server and for some reason Goo
 
 ### Long Image Generation Time
 The server checks for errors at the most crucial points. Keep an eye on the console if your image is taking longer than 30 seconds to load. If there's an error, try reloading the site.
+
+### Contact
+In case of the project not loading at all or any other show-stopping bugs, email robfiker@gmail.com.
