@@ -3,7 +3,7 @@ import './Playground.scss';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCategory } from '../Playground/PlaygroundSlice';
-import { setUpDefaultReduxCategoryItem } from '../../helpers';
+import { setUpDefaultReduxCategoryItem, getCssValue } from '../../helpers';
 import axios from 'axios';
 import PlaygroundCarousel from '../PlaygroundCarousel/PlaygroundCarousel';
 import Footer from '../Footer/Footer';
@@ -81,7 +81,7 @@ function Playground() {
                 <div className='playground__content'>
                     <FaceUpload onFileUpload={handleFileUpload} />
                     {reduxClothingCategories?.map((categoryItem, index) => {
-                            return <PlaygroundCarousel key={index} uiIndexOffset={2} defaultCardDimen={200} defaultItemWidth={232} categoryIndex={index} />
+                            return <PlaygroundCarousel key={index} defaultUiIndexOffset={0} defaultCardDimen={200} defaultItemWidth={232} categoryIndex={index} />
                     })}
                     {readyToGenerate && !isGenerating && <button className='carousel__generate-btn' onClick={handleGenerate}>Generate</button>}
                 </div>

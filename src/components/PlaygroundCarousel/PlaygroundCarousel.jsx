@@ -10,13 +10,13 @@ import PlaygroundCard from '../PlaygroundCard/PlaygroundCard';
 
 /**
  * PlaygroundCarousel contains a single moveable carousel with a list of clothing items for the specified clothing category.
- * @param {number} uiIndexOffset - The default difference between the card UI index and what index that card corresponds to within the source data.
+ * @param {number} defaultUiIndexOffset - The default difference between the card UI index and what index that card corresponds to within the source data.
  * @param {number} defaultCardDimen - Default CSS size of a Playground clothing item card in pixels.
  * @param {number} defaultItemWidth - The initial value for the --playground-card-dimen CSS root variable.
  * @param {number} categoryIndex - Integer representing which spot this carousel is supposed to occupy (in Playground) and also the index of the clothing category it corresponds to.
  * @returns {JSX.Element} React element representing a single clothing category Playground carousel component with a list of clothing items for that category.
  */
-function PlaygroundCarousel({ uiIndexOffset, defaultCardDimen, defaultItemWidth, categoryIndex }) {
+function PlaygroundCarousel({ defaultUiIndexOffset, defaultCardDimen, defaultItemWidth, categoryIndex }) {
 
     // MARK: Variables & Hooks
     const reduxCategories = useSelector((state) => state.playgroundData.categories);
@@ -25,6 +25,7 @@ function PlaygroundCarousel({ uiIndexOffset, defaultCardDimen, defaultItemWidth,
     const [carouselEnabled, setCarouselEnabled] = useState(false);
     const [cardDimen, setCardDimen] = useState(defaultCardDimen);
     const [itemWidth, setItemWidth] = useState(defaultItemWidth);
+    const [uiIndexOffset, setUiIndexOffset] = useState(defaultUiIndexOffset);
     const [itemUiIndex, setItemUiIndex] = useState(0); // to convert from UI index to the corresponding array index subtract "uiIndexOffset"
     const [availableItems, setAvailableItems] = useState([]);
     const [currentColor, setCurrentColor] = useState('');
@@ -52,6 +53,7 @@ function PlaygroundCarousel({ uiIndexOffset, defaultCardDimen, defaultItemWidth,
         }
         setCardDimen(getCssValue('--playground-card-dimen')); // dynamically update CSS values for carousel card dimensions
         setItemWidth(parseFloat(2 * getCssValue('--base-padding') + getCssValue('--playground-card-dimen')));
+        setUiIndexOffset(getCssValue('--carousel-index-offset'));
         fetchData();
     }, []);
 
@@ -79,7 +81,7 @@ function PlaygroundCarousel({ uiIndexOffset, defaultCardDimen, defaultItemWidth,
 
                         {/* // MARK: Carousel Scrolling & Clothing Items */}
                         <div className='carousel__inner' style={
-                            itemUiIndex <= availableItems.length - (2 * uiIndexOffset + 1) ? { // length - how many visible at one time (2*offset + middle item)
+                            itemUiIndex <= availableItems.length - (2 * uiIndexOffset + 1) ? { // length - how many visible at one time (2 * offset + middle item)
                                 transform: `translate(-${itemUiIndex * itemWidth}px)` // current item capable of being in the middle
                             } : {
                                 transform: `translate(-${(availableItems.length - (2 * uiIndexOffset + 1)) * itemWidth}px)`

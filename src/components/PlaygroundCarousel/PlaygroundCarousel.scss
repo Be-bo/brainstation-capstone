@@ -22,8 +22,8 @@
     }
 
     &__outer {
-        width: 1420px;
-        max-width: 1420px;
+        width: var(--carousel-width);
+        max-width: var(--carousel-width);
         overflow: hidden;
         display: inline-block;
         flex-direction: row;
