@@ -25,6 +25,7 @@ npm start
 
 ### Notes
 - SSL setup & hosting is in the works, for now everything is being loaded over HTTP.
+- For intended responsive behavior please reload the SPA every time you resize the window significantly.
 - A recent server public IP update caused Chrome to start complaining about CORS policy - it's being investigated, in the meantime Safari seems more reliable...
 - Each image generation takes at least 15s so be patient. If it's taking longer than 30 seconds, try reloading the app.
 - In case of any show-stopping bugs or issues, please email robfiker@gmail.com!
