@@ -5,7 +5,11 @@
 TOGA is a user-friendly solution to men's fashion essentials and combinations. It saves them from having to spend countless hours browsing clothing stores online and in person. The web app allows men to combine different types of tops, bottoms, and shirts, as well as play around with color palletes.
 You can discover new color combos and ways to combine men's fashion essentials such as bombers, jeans, chinos, polos, jackets, hoodies, etc. Just select the clothing type and color for each category and press generate - TOGA will give you an AI generated preview of what your new outfit could look like with your face as the model!
 
-## Setup
+## Technical Overview
+The app leverages the Remaker Face Swap API as well as the Open AI API for DALL-E 3 image generation. After the user has uploaded a picture of their face and selected the clothing items and colors they like for each clothing category, all this info is taken and sent to the server. The server is a separate repository [Link Text](https://github.com/Be-bo/brainstation-capstone-server) running on an AWS EC2 instance and is not set up to be cloned and run locally. After receiving the data the server constructs a prompt to generate an image of an outfit (DALL-E 3) and passes that image along to Remaker along with the user's face image to be swapped with the face of the generic model in the DALL-E 3 image. The result is returned back to this SPA and its data in a MongoDB instance, on the server. The user can view the bucket of all generated images so far in the gallery section of this React app.
+React is used for front-end, SCSS for styling, Redux Toolkit for state management, Axios for REST, MongoDB for storage, Express.js for server-side functionality, and OpenAI API, as well as Remaker API for core functionality. A custom, responsive carousel has also been built for the core Playground feature to make the UX more enjoyable.
+
+### Setup
 
 ```
 git clone https://github.com/Be-bo/brainstation-capstone.git
