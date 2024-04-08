@@ -28,5 +28,5 @@ npm start
 ### Browsers
 There was a recent update to the public IP of the server and for some reason Google Chrome started blocking content loading citing CORS policy. The issue is being investigated but in the meantime Safari has proven to work relieably!
 
-## Long Image Generation Time
+### Long Image Generation Time
 The server checks for errors at the most crucial points. Keep an eye on the console if your image is taking longer than 30 seconds to load. If there's an error, try reloading the site.
