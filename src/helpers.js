@@ -1,4 +1,11 @@
-export function getCssValue(cssVariableName){
+// MARK: Functions
+/**
+ * Gets a currently computed CSS value for a specific CSS carousel variable so that we can mess with it realtime.
+ * If the value is in rem the value also gets converted to px.
+ * @param {string} cssVariableName - CSS name of the target property variable of a clothing carousel.
+ * @returns {number} Current float value of the CSS variable provided as a param, converted to px.
+ */
+function getCssValue(cssVariableName){
     const validElement = document.querySelector('.carousel');
     const computedStyle = getComputedStyle(validElement);
     let variableStringValue = computedStyle.getPropertyValue(cssVariableName).trim();
@@ -9,79 +16,27 @@ export function getCssValue(cssVariableName){
     }else return parseFloat(variableStringValue.replace('px', ''));
 }
 
-export function convertRemToPx(remValue){
+/**
+ * Converts a rem value to pixels.
+ * @param {string} remValue - Value to convert from rem to pixels.
+ * @returns {number} Target value converted from rem to pixels.
+ */
+function convertRemToPx(remValue){
     const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
     const pixels = parseFloat(remValue) * rootFontSize;
     return pixels;
 }
 
-export function convertCategoryToArray(inputMap){
-    let itemsArray = Object.values(inputMap);
-    const namesArray = Object.keys(inputMap);
-    itemsArray = itemsArray.slice(0, itemsArray.length-1);
-    for(let i = 0; i<itemsArray.length; i++) itemsArray[i]["name"] = namesArray[i];
-    return itemsArray;
-}
-
-export const colorHexList = {
-    "Black": { hex: "#000000" },
-    "White": { hex: "#ffffff" },
-    "Grey": { hex: "#808080" },
-    "Brown": { hex: "#A52A2A" },
-    "Beige": { hex: "#F5F5DC" },
-    "Navy": { hex: "#000080" },
-    "Olive": { hex: "#808000" },
-    "Burgundy": { hex: "#800020" },
-    "Red": { hex: "#B22222" },
-    "Blue": { hex: "#4169E1" },
-    "Green": { hex: "#228B22" },
-    "Yellow": { hex: "#FFD700" },
-    "Purple": { hex: "#6A0DAD" },
-    "Teal": { hex: "#008B8B" },
-    "Cream": { hex: "#FFEFD5" },
-    "Charcoal": { hex: "#464646" },
-    "Tan": { hex: "#F0E68C" },
-    "Maroon": { hex: "#B03060" },
-    "Pink": { hex: "#FFB6C1" }
-};
-
-export const topUrlList = {
-    "V-Neck Sweater": "http://3.145.198.110:80/public/v-neck-sweater.png",
-    "Crew Neck Sweater": "http://3.145.198.110:80/public/crew-sweater.png",
-    "Collar Sweater": "http://3.145.198.110:80/public/collar-sweater.png",
-    "Cardigan": "http://3.145.198.110:80/public/cardigan.png",
-    "Hoodie": "http://3.145.198.110:80/public/hoodie.png",
-    "Blazer": "http://3.145.198.110:80/public/blazer.png",
-    "Bomber Jacket": "http://3.145.198.110:80/public/bomber.png",
-    "Leather Jacket": "http://3.145.198.110:80/public/leather-jacket.png",
-    "Utility Jacket": "http://3.145.198.110:80/public/utility-jacket.png",
-    "Shirt Jacket": "http://3.145.198.110:80/public/shirt-jacket.png",
-    "Jean Jacket": "http://3.145.198.110:80/public/jean-jacket.png",
-    "Trench Coat": "http://3.145.198.110:80/public/trench-coat.png",
-    "Softshell Jacket": "http://3.145.198.110:80/public/softshell-jacket.png",
-    "Puffer Jacket": "http://3.145.198.110:80/public/puffer-jacket.png",
-    "Fur Parka": "http://3.145.198.110:80/public/fur-parka.png",
-    "Ski Jacket": "http://3.145.198.110:80/public/ski-jacket.png",
-};
-
-export const shirtUrlList = {
-    "Crew Neck T-Shirt": "http://3.145.198.110:80/public/crew-tee.png",
-    "V-Neck T-Shirt": "http://3.145.198.110:80/public/v-neck-tee.png",
-    "Polo": "http://3.145.198.110:80/public/polo.png",
-    "Button-Up Shirt": "http://3.145.198.110:80/public/button-up.png",
-    "Henley": "http://3.145.198.110:80/public/henley.png",
-};
-
-export const bottomUrlList = {
-    "Chinos": "http://3.145.198.110:80/public/chinos.png",
-    "Jeans": "http://3.145.198.110:80/public/jeans.png",
-    "Jogger Sweatpants": "http://3.145.198.110:80/public/joggers.png",
-    "Traditional Sweatpants": "http://3.145.198.110:80/public/sweatpants.png",
-    "Cargo Pants": "http://3.145.198.110:80/public/cargo-pants.png",
-    "Dress Pants": "http://3.145.198.110:80/public/dress-pants.png",
-};
-
-export function setUpDefaultReduxCategoryItem(categoryId){
+/**
+ * Returns a skeleton clothing category array item to be stored in the Playground Redux Slice.
+ * Fills out the category id and assigns default (empty) values to the rest.
+ * @param {string} categoryId - The ID of the clothing category we're storing information for.
+ * @returns {Object} A promise that resolves to the user object.
+ * @property {string} category_id - The ID of the clothing category we're storing information for.
+ * @property {string} selected_clothing_id - The ID of the clothing item currently selected by the user in the given carousel/category.
+ * @property {Array} selected_color - A tuple containing the string literal name of the color and its corresponding string hex code, respectively.
+ */
+function setUpDefaultReduxCategoryItem(categoryId){
     return {
         category_id: categoryId,
         selected_clothing_id: '',
@@ -89,20 +44,10 @@ export function setUpDefaultReduxCategoryItem(categoryId){
     }
 }
 
-export const playgroundDataSchema = {
-    shirt:
-    {
-        name: '',
-        color: '',
-    },
-    top:
-    {
-        name: '',
-        color: '',
-    },
-    bottom:
-    {
-        name: '',
-        color: ''
-    },
-};
+
+// MARK: Exports
+module.exports = {
+    getCssValue,
+    convertRemToPx,
+    setUpDefaultReduxCategoryItem
+}
