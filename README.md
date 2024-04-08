@@ -8,3 +8,14 @@ Users can also save the generated outfits in their account section and revisit a
 
 ## Setup
 
+```
+git clone https://github.com/Be-bo/brainstation-capstone.git
+```
+
+```
+npm install
+```
+
+```
+npm start
+```
