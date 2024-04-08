@@ -43,7 +43,6 @@ function PlaygroundCarousel({ uiIndexOffset, defaultCardDimen, defaultItemWidth,
                 console.log(error);
             }
         }
-
         setCardDimen(getCssValue('--playground-card-dimen')); // dynamically update CSS values for carousel card dimensions
         setItemWidth(parseFloat(2 * getCssValue('--base-padding') + getCssValue('--playground-card-dimen')));
         fetchData();

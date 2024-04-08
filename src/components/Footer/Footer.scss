@@ -4,14 +4,31 @@
 
 .footer{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    gap: var(--base-padding);
     padding: var(--base-padding);
     background-color: $brand-color;
 
-    &__qr{
-        width: 128px;
-        height: 128px;
+    &__icons{
+        display: flex;
+        gap: var(--base-padding);
+    }
+
+    &__icon{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: var(--icon-dimen);
+        height: var(--icon-dimen);
+    }
+
+    &__contact{
+
+    }
+
+    &__copyright-text{
+        font-size: small;
     }
 }

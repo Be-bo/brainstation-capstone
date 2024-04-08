@@ -21,6 +21,7 @@ $arrow-btn-dimen: 75px;
 $avatar-dimen: 50px;
 $default-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 $generated-item-width: 768px;
+$nav-bottom-border-width: 2px;
 
 
 // MARK: RESPONSIVE VARIABLES
@@ -35,6 +36,7 @@ $generated-item-width: 768px;
     --p-font-size: 0.8125rem;
     --playground-card-dimen: 150px;
     --face-thumbnail-size: 256px;
+    --nav-bar-height: 50px;
 }
 
 
@@ -49,6 +51,7 @@ $generated-item-width: 768px;
     --h3-font-size: 0.925rem;
     --p-font-size: 0.9rem;
     --playground-card-dimen: 175px;
+    --nav-bar-height: 60px;
   }
 }
 
@@ -63,5 +66,6 @@ $generated-item-width: 768px;
         --h3-font-size: 1.1rem;
         --p-font-size: 1rem;
         --playground-card-dimen: 200px;
+        --nav-bar-height: 75px;
     }
 }

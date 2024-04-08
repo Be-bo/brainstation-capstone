@@ -4,12 +4,13 @@
 
 
 .nav-bar{
+    height: var(--nav-bar-height);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     background-color: $brand-color;
-    padding: 0 var(--base-padding); 
+    padding: 0 var(--base-padding);
 
     &__container-right{
         display: flex;
@@ -21,6 +22,34 @@
     &__logo-link{
         text-decoration: none;
         color: black;
+    }
+
+    &__nav{
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: var(--base-padding);
+        align-items: stretch;
+    }
+
+    &__nav-item{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 100px;
+        text-decoration: none;
+        color: $interaction-color;
+
+        &--selected{
+            color: black;
+            border-bottom: $nav-bottom-border-width solid black;
+            font-weight: 500;
+            cursor: default;
+        }
+    }
+
+    &__nav-item:hover{
+        font-weight: bold;
     }
 
     &__logo{

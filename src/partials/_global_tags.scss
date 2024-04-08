@@ -11,6 +11,10 @@ i{
     cursor: pointer;
 }
 
+a{
+    text-decoration: none;
+    color: black;
+}
 
 button{
     width: var(--button-width);
@@ -51,4 +55,9 @@ button{
     100% {
         transform: rotate(360deg);
     }
+}
+
+.nav-item-text{
+    font-size: var(--h3-font-size);
+    font-weight: 500;
 }
