@@ -3,7 +3,7 @@ import './PlaygroundCarousel.scss';
 import { React, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCategoryValue } from '../Playground/PlaygroundSlice';
-import { getCssValue } from '../../helpers';
+import { getCssValue, serverIP } from '../../helpers';
 import axios from 'axios';
 import PlaygroundCard from '../PlaygroundCard/PlaygroundCard';
 
@@ -44,7 +44,7 @@ function PlaygroundCarousel({ defaultUiIndexOffset, defaultCardDimen, defaultIte
     useEffect(() => {
         async function fetchData() { // fetch all clothing items for this carousel's assigned clothing category
             try {
-                const itemsResponse = await axios.get(`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/category`, { params: { categoryId: reduxCategories[categoryIndex]['category_id'] } });
+                const itemsResponse = await axios.get(`http://${serverIP}/playground/category`, { params: { categoryId: reduxCategories[categoryIndex]['category_id'] } });
                 setAvailableItems(itemsResponse.data);
                 setAvailableColors(itemsResponse.data[uiIndexOffset].colors);
                 dispatch(updateCategoryValue({ index: categoryIndex, key: 'selected_clothing_id', value: itemsResponse.data[uiIndexOffset]['_id'] }));

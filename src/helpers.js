@@ -44,10 +44,13 @@ function setUpDefaultReduxCategoryItem(categoryId){
     }
 }
 
+const serverIP = '3.130.188.16:80';
+
 
 // MARK: Exports
 module.exports = {
     getCssValue,
     convertRemToPx,
-    setUpDefaultReduxCategoryItem
+    setUpDefaultReduxCategoryItem,
+    serverIP
 }

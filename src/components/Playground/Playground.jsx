@@ -3,7 +3,7 @@ import './Playground.scss';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCategory } from '../Playground/PlaygroundSlice';
-import { setUpDefaultReduxCategoryItem, getCssValue } from '../../helpers';
+import { setUpDefaultReduxCategoryItem, serverIP } from '../../helpers';
 import axios from 'axios';
 import PlaygroundCarousel from '../PlaygroundCarousel/PlaygroundCarousel';
 import Footer from '../Footer/Footer';
@@ -38,7 +38,7 @@ function Playground() {
             const formData = new FormData();
             formData.append('face_image', selectedFaceImage); // attach face image to the payload
             formData.append('categories', JSON.stringify(reduxClothingCategories)); // attach user selection from all clothing carousels
-            const generationResponse = await axios.post(`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/playground/generate`, formData, {
+            const generationResponse = await axios.post(`http://${serverIP}/playground/generate`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

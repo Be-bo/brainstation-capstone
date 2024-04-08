@@ -1,5 +1,6 @@
 import './Gallery.scss';
 import { useState, useEffect } from 'react';
+import { serverIP } from '../../helpers';
 import axios from 'axios';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
@@ -13,7 +14,7 @@ function Gallery() {
 
     useEffect(() => {
         async function fetchAllGeneratedItems() {
-            const response = await axios.get(`http://${process.env.REACT_APP_SERVER_IP_ADDRESS}/gallery`);
+            const response = await axios.get(`http://${serverIP}/gallery`);
             const sortedItems = response.data.sort((a, b) => b.timestamp - a.timestamp);
             setGalleryItems(sortedItems);
         }
