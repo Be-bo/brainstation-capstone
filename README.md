@@ -23,17 +23,13 @@ npm install
 npm start
 ```
 
+### Notes
+- SSL setup & hosting is in the works, for now everything is being loaded over HTTP.
+- A recent server public IP update caused Chrome to start complaining about CORS policy - it's being investigated, in the meantime Safari seems more reliable...
+- Each image generation takes at least 15s so be patient. If it's taking longer than 30 seconds, try reloading the app.
+- In case of any show-stopping bugs or issues, please email robfiker@gmail.com!
+
+
 ## Screenshots
 ![Playground Core Feature](./src/assets/playground.png)
 ![Gallery Secondary Feature](./src/assets/gallery.png)
-
-## Troubleshooting
-
-### Browsers
-There was a recent update to the public IP of the server and for some reason Google Chrome started blocking content loading citing CORS policy. The issue is being investigated but in the meantime Safari has proven to work relieably!
-
-### Long Image Generation Time
-The server checks for errors at the most crucial points. Keep an eye on the console if your image is taking longer than 30 seconds to load. If there's an error, try reloading the site.
-
-### Contact
-In case of the project not loading at all or any other show-stopping bugs, email robfiker@gmail.com.
