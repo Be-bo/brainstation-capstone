@@ -26,7 +26,8 @@ function PlaygroundCarousel({ defaultUiIndexOffset, defaultCardDimen, defaultIte
     const [cardDimen, setCardDimen] = useState(defaultCardDimen);
     const [itemWidth, setItemWidth] = useState(defaultItemWidth);
     const [uiIndexOffset, setUiIndexOffset] = useState(defaultUiIndexOffset);
-    const [itemUiIndex, setItemUiIndex] = useState(0); // to convert from UI index to the corresponding array index subtract "uiIndexOffset"
+    // to convert from UI index to the corresponding array index subtract "uiIndexOffset", starting at 0 == starting in the middle so for 5 items 0 in UI corresponds to -2:
+    const [itemUiIndex, setItemUiIndex] = useState(0); 
     const [availableItems, setAvailableItems] = useState([]);
     const [currentColor, setCurrentColor] = useState('');
     const [availableColors, setAvailableColors] = useState([]);
@@ -81,15 +82,15 @@ function PlaygroundCarousel({ defaultUiIndexOffset, defaultCardDimen, defaultIte
 
                         {/* // MARK: Carousel Scrolling & Clothing Items */}
                         <div className='carousel__inner' style={
-                            itemUiIndex <= availableItems.length - (2 * uiIndexOffset + 1) ? { // length - how many visible at one time (2 * offset + middle item)
-                                transform: `translate(-${itemUiIndex * itemWidth}px)` // current item capable of being in the middle
+                            itemUiIndex <= availableItems.length - (2 * uiIndexOffset + 1) ? { // length - how many carousel capable displaying at one time (2 * offset + middle item)
+                                transform: `translate(-${itemUiIndex * itemWidth}px)` // currently selected item is capable of being in the middle (meaning there's enough offset to fill all visible carousel spots)
                             } : {
-                                transform: `translate(-${(availableItems.length - (2 * uiIndexOffset + 1)) * itemWidth}px)`
+                                transform: `translate(-${(availableItems.length - (2 * uiIndexOffset + 1)) * itemWidth}px)` // currently selected item cannot be in the middle - don't scroll further
                             }}>
 
                             {availableItems?.map((item, index) => {
                                 let dimen = cardDimen;
-                                if (index == itemUiIndex + uiIndexOffset) dimen = cardDimen * 1.5;
+                                if (index == itemUiIndex + uiIndexOffset) dimen = cardDimen * 1.5; // currently selected item is 1.5x bigger than standard item
                                 return <PlaygroundCard key={index} itemWidth={dimen} itemHeight={dimen}
                                     itemClick={() => clothingItemClicked(index - uiIndexOffset)} itemImgPath={item.image} itemName={item.name} />
                             })}
