@@ -65,7 +65,7 @@ function FaceUpload({ onFileUpload }) {
                         <input {...getInputProps()} />
                         <button>Browse</button>
                     </div>
-                    <p>Supports PNG and JPG</p>
+                    <p>*Supports PNG and JPG</p>
                 </>
             )}
         </div>

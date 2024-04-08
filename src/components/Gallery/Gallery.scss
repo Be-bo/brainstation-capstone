@@ -1,0 +1,33 @@
+@import '../../partials/variables';
+@import '../../partials/mixins';
+@import '../../partials/global_tags';
+
+.gallery{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+
+    &__container{
+        margin: var(--base-padding);
+        text-align: center;
+        display: grid;
+        gap: var(--base-padding);
+        grid-template-columns: repeat(3, 30vw);
+        grid-template-rows: 30vw;
+        grid-gap: 2.5vw;
+        padding: 1vw;
+    }
+
+    &__item{
+        border-radius: $corner-radius;
+        overflow: hidden;
+        box-shadow: $default-shadow;
+    }
+
+    &__image{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}

@@ -13,7 +13,7 @@ function PlaygroundDialog({imageUrl, cancelDialog}) {
 
             {/* // MARK: Loading Layer */}
             {imageUrl == '' &&
-                < div >
+                <div>
                     <h2 className='upload-container__text'>Working on it!</h2>
                     <div className="loader">
                         <div className="spinner"></div>
