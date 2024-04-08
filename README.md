@@ -19,3 +19,6 @@ npm install
 ```
 npm start
 ```
+
+## Screenshots
+![Playground Core Feature](./src/assets/playground.png)
