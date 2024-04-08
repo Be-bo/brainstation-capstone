@@ -24,8 +24,9 @@
     }
 
     &__thumbnail{
-        width: 100%;
-        height: 100%;
+        width: var(--face-thumbnail-size);
+        height: var(--face-thumbnail-size);
+        object-fit: cover;
     }
 
     &__thumbnail-overlay{
