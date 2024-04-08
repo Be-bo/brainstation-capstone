@@ -8,7 +8,14 @@ import axios from 'axios';
 import PlaygroundCard from '../PlaygroundCard/PlaygroundCard';
 
 
-// MARK: Component Function
+/**
+ * PlaygroundCarousel contains a single moveable carousel with a list of clothing items for the specified clothing category.
+ * @param {number} uiIndexOffset - The default difference between the card UI index and what index that card corresponds to within the source data.
+ * @param {number} defaultCardDimen - Default CSS size of a Playground clothing item card in pixels.
+ * @param {number} defaultItemWidth - The initial value for the --playground-card-dimen CSS root variable.
+ * @param {number} categoryIndex - Integer representing which spot this carousel is supposed to occupy (in Playground) and also the index of the clothing category it corresponds to.
+ * @returns {JSX.Element} React element representing a single clothing category Playground carousel component with a list of clothing items for that category.
+ */
 function PlaygroundCarousel({ uiIndexOffset, defaultCardDimen, defaultItemWidth, categoryIndex }) {
 
     // MARK: Variables & Hooks

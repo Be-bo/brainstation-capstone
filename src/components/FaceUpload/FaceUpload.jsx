@@ -6,7 +6,11 @@ import { useDropzone } from "react-dropzone";
 import { setUserData } from '../Playground/PlaygroundSlice';
 
 
-// MARK: Component Function
+/**
+ * FaceUpload component contains the top section of the Playground page where the user uploads an image of a face to use for face swapping.
+ * @param {function} props.onFileUpload - A local image selection click handler.
+ * @returns {JSX.Element} React element representing the FaceUpload component.
+ */
 function FaceUpload({ onFileUpload }) {
 
     // MARK: Variables & Hooks

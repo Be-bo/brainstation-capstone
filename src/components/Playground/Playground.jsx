@@ -12,7 +12,12 @@ import FaceUpload from '../FaceUpload/FaceUpload';
 import PlaygroundDialog from '../PlaygroundDialog/PlaygroundDialog';
 
 
-// MARK: Component Function
+/**
+ * Playground contains the core feature of the application - the user selects a face picture and makes clothing and color selections for all clothing categories within their respective carousels.
+ * When the selection has been made the generation button will appear that allows the user to submit a generation request to get the resulting generated and face-swapped image.
+ * Lastly, it manages the PlaygroundDialog used to display the final result of a single generation item.
+ * @returns {JSX.Element} React element containing the entire Playground feature component of the application.
+ */
 function Playground() {
 
     // MARK: Variables & Hooks

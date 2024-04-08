@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import './Footer.scss';
 import linkedInQR from '../../assets/linkedin_qr.png';
 
+/**
+ * Contains the footer for the whole application (social media link icons, contact email, copyright notice).
+ * @returns {JSX.Element} React element representing the footer of all pages of the application.
+ */
 function Footer() {
-
-
-
-
     return (
         <div className='footer'>
             <div className='footer__icons'>

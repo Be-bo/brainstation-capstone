@@ -4,7 +4,10 @@ import axios from 'axios';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 
-
+/**
+ * Displays all generated items created to date by first pulling all their data from the server and then using the result_image url to display the final image.
+ * @returns {JSX.Element} React element representing the Gallery component.
+ */
 function Gallery() {
     const [galleryItems, setGalleryItems] = useState([]);
 
