@@ -27,12 +27,14 @@ function Playground() {
     const [imageUrl, setImageUrl] = useState('');
     const [readyToGenerate, setReadyToGenerate] = useState(false);
     const [selectedFaceImage, setSelectedFaceImage] = useState(null);
+    const [generationError, setGenerationError] = useState('');
 
     // MARK: Event Handlers
     const handleFileUpload = (file) => {setSelectedFaceImage(file);};
     const handleGenerate = async () => {
         setIsGenerating(true);
         setImageUrl('');
+        setGenerationError('');
 
         try {
             const formData = new FormData();
@@ -43,11 +45,12 @@ function Playground() {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log('File uploaded successfully:', generationResponse.data);
+            console.log('Successfully handled image generation request: ', generationResponse.data);
             setImageUrl(generationResponse.data.result_image); // save image url for the playground dialog to use
 
         } catch (error) {
-            console.error('Error uploading file:', error);
+            console.error('Error generating image: ', error);
+            setGenerationError(error.response.data);
         }
     }
 
@@ -90,7 +93,7 @@ function Playground() {
             </div>
 
             {/* // MARK: Opacity Overlay & Image Dialog */}
-            {isGenerating && <PlaygroundDialog imageUrl={imageUrl} cancelDialog={() => setIsGenerating(false)} />}
+            {isGenerating && <PlaygroundDialog imageUrl={imageUrl} errorText={generationError} cancelDialog={() => setIsGenerating(false)} />}
             {isGenerating && <div className='playground__overlay'></div>}
         </div>
     );
